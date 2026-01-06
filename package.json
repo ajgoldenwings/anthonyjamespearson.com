@@ -1,0 +1,37 @@
+{
+  "name": "anthonyjamespearson-com",
+  "version": "1.0.0",
+  "description": "Node package for the repository as a whole",
+  "scripts": {
+    "start": "npm run start --if-present --prefix ./website",
+    "build": "npm run build --if-present --prefix ./website",
+    "build:website": "npm run build --prefix ./website",
+    "build:all": "npm run build:website",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    
+    "synth": "npm run build:all && cdk synth --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=news.anthonyjamespearson.com",
+    "diff": "npm run build:all && cdk diff --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=news.anthonyjamespearson.com",
+    "deploy:infra": "npm run build:all && cdk deploy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=news.anthonyjamespearson.com --require-approval never",
+    "deploy": "npm run build:all && cdk deploy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=news.anthonyjamespearson.com",
+    "deploy:full": "npm run deploy:infra && npm run build:website && npm run deploy:infra",
+    "destroy": "cdk destroy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=news.anthonyjamespearson.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajgoldenwings/anthonyjamespearson.com.git"
+  },
+  "keywords": [
+    "aws",
+    "daisyUI",
+    "tailwind CSS"
+  ],
+  "author": "Mountain Technologies LLC",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ajgoldenwings/anthonyjamespearson.com/issues"
+  },
+  "homepage": "https://github.com/ajgoldenwings/anthonyjamespearson.com#readme",
+  "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.0.0"
+  }
+}
