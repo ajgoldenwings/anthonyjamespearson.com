@@ -3,10 +3,15 @@ import { Home } from './pages/home/home';
 import { About } from './pages/about/about';
 import { Articles } from './pages/articles/articles';
 import { ArticleDetail } from './pages/article-detail/article-detail';
+import { articleTitleResolver } from './resolvers/article-title.resolver';
 
 export const routes: Routes = [
   { path: '', component: Home, title: "Anthony – Home" },
   { path: 'about', component: About, title: "Anthony – About" },
   { path: 'articles', component: Articles, title: "Anthony – Articles" },
-  { path: 'articles/:id', component: ArticleDetail, title: "Anthony – Article" }
+  {
+    path: 'articles/:id',
+    component: ArticleDetail,
+    title: articleTitleResolver
+  }
 ];
