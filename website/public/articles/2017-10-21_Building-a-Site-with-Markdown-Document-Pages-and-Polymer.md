@@ -4,7 +4,7 @@ Question. Why use Markdown when we can use plain HTML? You can do more with HTML
 
 Answer. Yes, you are right. I want to use Markdown because it cuts down on some of the complexities of HTML. Couple things. First, once you find a good Markdown file generator, you can write out precisely what you want down without the HTML tag complexities and not have to worry about CSS. You can see below that VSCode has a good preview editor.
 
-![](../src/assets/images/2017-10-21_2.png "Preview for MD files")
+![](/images/2017-10-21_2.png "Preview for MD files")
 
 Second, as my blog site grew with posts, it was difficult formatting HTML into JSON and then be injected into the site. I did not want to have individual html import files since I did not want to treat them as HTML files or components. I want my posts to be treated as posts. Markdown looks to be the best choice to use.
 
@@ -136,7 +136,7 @@ polymer serve
 
 You will probably have a couple issues when opening this, but it should look like:
 
-![](../src/assets/images/2017-10-21_1.png "What site should look like")
+![](/images/2017-10-21_1.png "What site should look like")
 
 So, there are some missing features and there are ways to make this better. For instance, there is no navigation buttons to other Markdown Documents or you can just dynamically place the document file location within the Markdown element, but I leave this to you to figure out. Also, if you want, you can look at the differences between my blog and this post. This blog has this feature fully build out and you may cheat and evolve your Markdown site using my repositories on Github:
 

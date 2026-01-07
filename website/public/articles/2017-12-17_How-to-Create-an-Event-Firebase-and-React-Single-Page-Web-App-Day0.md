@@ -29,7 +29,7 @@ Be sure to check the pricing if you are interested in making an expanded applica
 
 Please sign in and add a new project. I am calling mine 'My Events' but you may give a different name and if you do be aware you may need make a couple changes here and there due to the name change.
 
-![](../src/assets/images/ReactFirebase_Day0_00.png "Add Project")
+![](/images/ReactFirebase_Day0_00.png "Add Project")
 
 Once created, you should be brought to your control panel for managing your backend.
 
@@ -37,7 +37,7 @@ Once created, you should be brought to your control panel for managing your back
 Now pull up your prefered terminal to enter some npm commands. I prefer doing mine right within my prefered text editor [Visual Studio Code](https://code.visualstudio.com/" target="_blank).
 
 
-![](../src/assets/images/ReactFirebase_Day0_01.png "Terminal")
+![](/images/ReactFirebase_Day0_01.png "Terminal")
 
 Make sure to have 'create-react-app' installed with command `npm i -g create-react-app`.
 
@@ -47,7 +47,7 @@ Since my application's name is 'My Events' I am going to run the command `create
 
 You should see this in your browser on `http://localhost:3000/`
 
-![](../src/assets/images/ReactFirebase_Day0_02.png "Our Default App Site")
+![](/images/ReactFirebase_Day0_02.png "Our Default App Site")
 
 ## Deploy to Firebase
 We have setup the default React application. Lets try to deploy it now.
@@ -66,15 +66,15 @@ Now let's set up Firebase on our application. Run this command:
 
 You may have to run `firebase login` before running this command. Now, let's set up Firebase once you have been logged in and ran the `init` command. First press `enter` to proceed by default.
 
-![](../src/assets/images/ReactFirebase_Day0_03.png "Proceed with firebase")
+![](/images/ReactFirebase_Day0_03.png "Proceed with firebase")
 
 Next, using the `spacebar` to select and `enter` to confirm your choices, select **Database** and **Hosting**.
 
-![](../src/assets/images/ReactFirebase_Day0_04.png "Select Database and Hosting")
+![](/images/ReactFirebase_Day0_04.png "Select Database and Hosting")
 
 Now select the project that you previously made in Firebase.
 
-![](../src/assets/images/ReactFirebase_Day0_05.png "Select Firebase Project")
+![](/images/ReactFirebase_Day0_05.png "Select Firebase Project")
 
 Keep the default for `What file should be used for Database Rules? (database.rules.json)`.
 
@@ -88,20 +88,20 @@ That should be the last question. Now lets deploy!
 
 `firebase deploy`
 
-![](../src/assets/images/ReactFirebase_Day0_06.png "Firebase Deploy")
+![](/images/ReactFirebase_Day0_06.png "Firebase Deploy")
 
 ## Using the Firebase Database
 Go to the [Firebase console](https://console.firebase.google.com" target="_blank) and we will be modifying the script and adding it into our application. Using the scripts, we will be making creating a js file with this.
 
-![](../src/assets/images/ReactFirebase_Day0_07.png "Firebase Database scripts")
+![](/images/ReactFirebase_Day0_07.png "Firebase Database scripts")
 
 In your `src` folder create a file called `fire.js`.
 
-![](../src/assets/images/ReactFirebase_Day0_08.png "Create fire.js")
+![](/images/ReactFirebase_Day0_08.png "Create fire.js")
 
 Open this file. With the script that displayed in the Firebase console modify it so it looks like below:
 
-![](../src/assets/images/ReactFirebase_Day0_09.png "fire.js file")
+![](/images/ReactFirebase_Day0_09.png "fire.js file")
 
 `import firebase from 'firebase'`
 
@@ -151,7 +151,7 @@ Nothing should change on the front end side but just a check to see if it all go
 
 In the `src/App.js` file, we will be adding some lines to it. You may remove the banner but I left it in. Here is how the code looks:
 
-![](../src/assets/images/ReactFirebase_Day0_10.png "App.js")
+![](/images/ReactFirebase_Day0_10.png "App.js")
 
 `import React, { Component } from 'react';`
 
@@ -247,7 +247,7 @@ Then Run `firebase deploy`
 
 When you navigate to your Hosting URL, you may will see your old site. To fix this all you have to do is `Empty Cache and Hard Reload` in the developer tools in Chrome or similar in another browser.
 
-![](../src/assets/images/ReactFirebase_Day0_11.png "App.js")
+![](/images/ReactFirebase_Day0_11.png "App.js")
 
 That should be it for this day. Look forward for future days where we will look at even more interesting stuffs for your new app. In the meantime I recommend in learning React.
 

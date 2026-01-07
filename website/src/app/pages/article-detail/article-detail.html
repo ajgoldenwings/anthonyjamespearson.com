@@ -1,0 +1,31 @@
+<div class="container mx-auto px-4 sm:px-0 py-8">
+  <div class="prose">
+    <!-- Back button -->
+    <div class="mb-6">
+      <button (click)="goBack()" class="btn btn-ghost btn-sm">
+        ← Back to Articles
+      </button>
+    </div>
+
+    <!-- Article content -->
+    <div *ngIf="!articleNotFound" class="prose lg:prose-xl max-w-none">
+      <markdown
+        [src]="articlePath"
+        (error)="onMarkdownError()">
+      </markdown>
+    </div>
+
+    <!-- Article not found -->
+    <div *ngIf="articleNotFound" class="text-center py-16">
+      <div class="hero">
+        <div class="hero-content text-center">
+          <div class="max-w-md">
+            <h1 class="text-5xl font-bold">404</h1>
+            <p class="py-6">Article not found. The article you're looking for doesn't exist or has been moved.</p>
+            <button (click)="goBack()" class="btn btn-primary">Back to Articles</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

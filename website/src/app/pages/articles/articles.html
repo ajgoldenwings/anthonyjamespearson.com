@@ -1,5 +1,26 @@
-<div class="container mx-auto">
-  <div class="prose">
-    <markdown [src]="'articles/articles.md'"></markdown>
+<div class="container mx-auto px-4 sm:px-0 py-8">
+  <div class="mb-8">
+    <div class="prose">
+      <h1 class="text-5xl font-bold mb-4">Articles</h1>
+      <p class="text-lg">
+        A collection of articles about software development, web technologies, and my experiences in programming.
+      </p>
+    </div>
+  </div>
+
+  <div class="space-y-6 prose">
+    <div *ngFor="let article of articles" class="card bg-base-100 shadow-lg hover:shadow-xl shadow-primary/20 transition-shadow not-prose">
+      <div class="card-body">
+        <div class="flex justify-between items-start mb-2">
+          <div class="badge badge-soft badge-secondary">{{ article.date }}</div>
+        </div>
+        <h2 class="card-title text-xl mb-3">
+          <a [routerLink]="['/articles', article.id]" class="link link-hover">
+            {{ article.title }}
+          </a>
+        </h2>
+        <p class="text-base-content/70 mb-4">{{ article.description }}</p>
+      </div>
+    </div>
   </div>
 </div>
