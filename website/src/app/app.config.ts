@@ -1,5 +1,7 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { provideHttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { MarkdownModule } from 'ngx-markdown';
 
 import { routes } from './app.routes';
@@ -10,6 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    importProvidersFrom(MarkdownModule.forRoot())
+    provideHttpClient(),
+    importProvidersFrom(MarkdownModule.forRoot({ loader: HttpClient }))
   ]
 };

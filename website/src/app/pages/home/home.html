@@ -1,54 +1,90 @@
-<div>
-  <button class="btn btn-outline">Posts</button><br>
-  <button class="btn btn-outline">About</button><br>
-  <button class="btn btn-outline">Contact</button><br>
-</div>
+<div class="container mx-auto">
+  <div class="px-3 sm:px-0">
+    <div class="flex items-center min-h-[calc(100vh-9rem)]">
+      <article class="prose prose-lg sm:prose-2xl">
+        <h1 class="font-bold tracking-tight">
+          to make change happen so <span class="bg-linear-to-r from-secondary to-primary inline-block text-transparent bg-clip-text">everyone</span> becomes a force multiplier.
+        </h1>
+      </article>
+    </div>
 
-<div class="hero bg-base-200">
-  <div class="hero-content text-center">
-    <div class="max-w-md">
-      <h1 class="text-5xl font-bold">Hello there</h1>
-      <p class="py-6">
-        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-        quasi. In deleniti eaque aut repudiandae et a id nisi.
-      </p>
-      <button class="btn btn-primary">Get Started</button>
+
+    <div class="mb-5 sm:mb-8 flex">
+      <div class="font-semibold text-secondary/90 relative rounded-full px-3 py-1 leading-6 ring-1 ring-secondary/30 text-sm sm:text-base hover:ring-secondary/40 hover:text-secondary"> View <span class="hidden sm:inline">my latest updates</span>
+        <span class="sm:hidden">me</span> on LinkedIn.
+          <a target="_blank" class="text-primary font-normal" href="https://www.linkedin.com/in/anthony-james-pearson">
+            <span aria-hidden="true" class="absolute inset-0"></span>Read more <span aria-hidden="true">→</span>
+          </a>
+        </div>
+    </div>
+
+    <h1 class="text-6xl font-bold tracking-tight mb-3">
+      Anthony <span class="hidden md:inline">James</span> Pearson.
+    </h1>
+
+    <p class="text-base-content/70 text-lg leading-8 pb-12">
+      Senior .NET / AWS Engineer | Full-Stack Architect | Legacy Modernization, Microservices & IaC | Angular/Vue | AI & More
+    </p>
+
+
+    <div class="stats shadow stats-vertical md:stats-horizontal">
+      <div class="stat">
+        <div class="stat-figure text-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block h-8 w-8 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+          </svg>
+        </div>
+        <div class="stat-title">Years of Experience</div>
+        <div class="stat-value text-primary">+10</div>
+        <div class="stat-desc">Excluding internships</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 10.5 4.72-4.72a.75.75 0 0 1 1.28.53v11.38a.75.75 0 0 1-1.28.53l-4.72-4.72M4.5 18.75h9a2.25 2.25 0 0 0 2.25-2.25v-9a2.25 2.25 0 0 0-2.25-2.25h-9A2.25 2.25 0 0 0 2.25 7.5v9a2.25 2.25 0 0 0 2.25 2.25Z" />
+          </svg>
+        </div>
+        <div class="stat-title">Combined <a href="https://www.youtube.com/@YYTTMedia" target="_blank" aria-label="View one of my YouTube Channels—@YYTTMedia - Yangyang Twantwan" class="text-secondary hover:underline">YouTube</a> Views</div>
+        <div class="stat-value text-secondary">306K</div>
+        <div class="stat-desc">3.4k Watch hours</div>
+      </div>
+
+      <div class="stat">
+        <div class="stat-figure text-secondary">
+          <div class="avatar">
+            <div class="w-16 rounded-full">
+              <img src="/images/avatar.jpg" />
+            </div>
+          </div>
+        </div>
+        <div class="stat-title">&nbsp;</div>
+        <div class="stat-value">100%</div>
+        <div class="stat-title">Human</div>
+      </div>
     </div>
   </div>
 </div>
 
+
 <div
-  class="hero"
+  class="sm:mt-12 md:mt-28 grayscale hover:grayscale-0"
   style="background-image: url(/images/ajp_2.jpg);"
 >
-  <div class="hero-overlay"></div>
-  <div class="hero-content text-neutral-content text-center">
-    <div class="max-w-md">
-      <a class="btn btn-outline" routerLink="/posts">Posts</a>
+  <div class="py-32 bg-white/90">
+    <div class="container mx-auto">
+      <a class="btn btn-lg md:btn-xl btn-outline" routerLink="/posts">Posts</a>
     </div>
   </div>
 </div>
 
 <div
-  class="hero"
+  class="grayscale hover:grayscale-0"
   style="background-image: url(/images/ajp_3.jpg);"
 >
-  <div class="hero-overlay"></div>
-  <div class="hero-content text-neutral-content text-center">
-    <div class="max-w-md">
-      <a class="btn btn-outline" routerLink="/about">About</a>
-    </div>
-  </div>
-</div>
-
-<div
-  class="hero"
-  style="background-image: url(/images/ajp_1.jpg);"
->
-  <div class="hero-overlay"></div>
-  <div class="hero-content text-neutral-content text-center">
-    <div class="max-w-md">
-      <button class="btn btn-outline">Contact</button>
+  <div class="py-32 bg-white/90">
+    <div class="container mx-auto">
+      <a class="btn btn-lg md:btn-xl btn-outline" routerLink="/about">About</a>
     </div>
   </div>
 </div>
