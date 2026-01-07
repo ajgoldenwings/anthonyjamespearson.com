@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
 
 @Component({
-  selector: 'app-posts',
-  templateUrl: './posts.html',
+  selector: 'app-articles',
+  templateUrl: './articles.html',
   imports: [
     MarkdownModule
   ],
 })
-export class Posts {
+export class Articles {
 }
