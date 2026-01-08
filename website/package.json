@@ -35,6 +35,7 @@
     "@tailwindcss/postcss": "^4.1.18",
     "daisyui": "^5.5.14",
     "express": "^5.1.0",
+    "gtag": "^1.0.1",
     "marked": "^17.0.1",
     "ngx-markdown": "^21.0.1",
     "postcss": "^8.5.6",

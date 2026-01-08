@@ -18,12 +18,12 @@ You will be surprised on how fast it is to develop a solution locally and deploy
 
 It helps to know a few things of the web or a framework in JavaScript but I know that everyone does not know everything. So I may be a little verbose.
 
-If you have not installed [Node.js](https://nodejs.org/en/" target="_blank), please do so now.
+If you have not installed <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, please do so now.
 
 This will help installing React, getting important components, and deployment.
 
 ## Setting up Firebase
-The best reason to use Firebase is that it is extremely scalable with many built in tools. Getting something started is super simple and also **Free**! So go to [Firebase](https://firebase.google.com/" target="_blank) and sign up.
+The best reason to use Firebase is that it is extremely scalable with many built in tools. Getting something started is super simple and also **Free**! So go to <a href="https://firebase.google.com/" target="_blank">Firebase</a> and sign up.
 
 Be sure to check the pricing if you are interested in making an expanded application.
 
@@ -34,7 +34,7 @@ Please sign in and add a new project. I am calling mine 'My Events' but you may 
 Once created, you should be brought to your control panel for managing your backend.
 
 ## Setting up React
-Now pull up your prefered terminal to enter some npm commands. I prefer doing mine right within my prefered text editor [Visual Studio Code](https://code.visualstudio.com/" target="_blank).
+Now pull up your prefered terminal to enter some npm commands. I prefer doing mine right within my prefered text editor <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>.
 
 
 ![](/images/ReactFirebase_Day0_01.png "Terminal")
@@ -56,7 +56,7 @@ First we are going to create a folder and place our production ready source code
 
 `npm run build`
 
-We will also want the [tools to deploy to our firebase](https://www.npmjs.com/package/firebase-tools" target="_blank) site. If you have not already run this command:
+We will also want the <a href="https://www.npmjs.com/package/firebase-tools" target="_blank">tools to deploy to our firebase</a> site. If you have not already run this command:
 
 `npm install -g firebase-tools`
 
@@ -91,7 +91,7 @@ That should be the last question. Now lets deploy!
 ![](/images/ReactFirebase_Day0_06.png "Firebase Deploy")
 
 ## Using the Firebase Database
-Go to the [Firebase console](https://console.firebase.google.com" target="_blank) and we will be modifying the script and adding it into our application. Using the scripts, we will be making creating a js file with this.
+Go to the <a href="https://console.firebase.google.com" target="_blank">Firebase console</a> and we will be modifying the script and adding it into our application. Using the scripts, we will be making creating a js file with this.
 
 ![](/images/ReactFirebase_Day0_07.png "Firebase Database scripts")
 
@@ -125,25 +125,28 @@ Open this file. With the script that displayed in the Firebase console modify it
 
 Lets now change the rules for the database. We will make everything readable and writable. In the future we will change this. Open `database.rules.json` and change the rules to true for both read and write. The file should look like below.
 
-`{`
-
-`  "rules": {`
-
-`    ".read": true,`
-
-`    ".write": true`
-
-`  }`
-
-`}`
+```
+{
+  "rules": {
+    ".read": true,
+    ".write": true
+  }
+}
+```
 
 Run `npm install -S firebase` to install the Firebase packages.
 
 That should be it for configuring the database. Now lets try deploying this.
 
-Run `npm run build`
+```bash
+npm run build
+```
 
-Then Run `firebase deploy`
+Then run:
+
+```bash
+firebase deploy
+```
 
 Nothing should change on the front end side but just a check to see if it all goes well.
 
@@ -241,9 +244,15 @@ In the `src/App.js` file, we will be adding some lines to it. You may remove the
 
 Now lets deploy this.
 
-Run `npm run build`
+```bash
+npm run build
+```
 
-Then Run `firebase deploy`
+Then run:
+
+```bash
+firebase deploy
+```
 
 When you navigate to your Hosting URL, you may will see your old site. To fix this all you have to do is `Empty Cache and Hard Reload` in the developer tools in Chrome or similar in another browser.
 
@@ -253,7 +262,5 @@ That should be it for this day. Look forward for future days where we will look 
 
 If you have any questions please reach out.
 
-[Click here for the next day for Authentication](" target="_blank). <- not yet active
-
 ## Github files
-[Click here](https://github.com/ajgoldenwings/AnthonyJamesPearson/tree/2017-October-Branch/assets/demos/2017-12-17_How-to-Create-an-Event-Firebase-and-React-Single-Page-Web-App-Day0" target="_blank)
+<a href="https://github.com/ajgoldenwings/AnthonyJamesPearson/tree/2017-October-Branch/assets/demos/2017-12-17_How-to-Create-an-Event-Firebase-and-React-Single-Page-Web-App-Day0" target="_blank">Click here</a>

@@ -1,5 +1,5 @@
 <div class="container mx-auto px-4 sm:px-0 py-8">
-  <div class="prose">
+  <div class="prose lg:prose-xl">
     <!-- Back button -->
     <div class="mb-6">
       <button (click)="goBack()" class="btn btn-ghost btn-sm">
@@ -8,7 +8,7 @@
     </div>
 
     <!-- Article content -->
-    <div *ngIf="!articleNotFound" class="prose lg:prose-xl max-w-none">
+    <div *ngIf="!articleNotFound">
       <markdown
         [src]="articlePath"
         (error)="onMarkdownError()">

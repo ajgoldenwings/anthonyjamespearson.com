@@ -4,7 +4,7 @@ One issue that I came across when making sites is the redundant amount of copies
 
 ![](/images/p30.jpg)
 
-We can see that it has three links in a basic, minimal menu. You may add styling and such after to meet your needs. You should be able to do everything in this article with standard JavaScript but I am going to use jQuery just cause I like it and you should too. Go to [https://jquery.com/download/](https://jquery.com/download/" target="_blank) and download the latest compressed, production version.
+We can see that it has three links in a basic, minimal menu. You may add styling and such after to meet your needs. You should be able to do everything in this article with standard JavaScript but I am going to use jQuery just cause I like it and you should too. Go to <a href="https://jquery.com/download/" target="_blank">https://jquery.com/download/</a> and download the latest compressed, production version.
 
 ![](/images/p31.jpg)
 
@@ -50,7 +50,7 @@ The last line in the loadPageFromHashToId function to add will be to load the pa
 
 Cool! That is it. If you want to see more content on this topic, let me know. I have a few additional things beyond this such as saving pages in session storage which loads pages even quicker that has the ability to search for links and automatically save them on page loads. Stay cool everyone.
 
-[Download all files here](https://github.com/ajgoldenwings/2016-06-25_siteloader" target="_blank)
+<a href="https://github.com/ajgoldenwings/2016-06-25_siteloader" target="_blank">Download all files here</a>
 
 ### Other interesting links:
-* [https://blog.httpwatch.com/2011/03/01/6-things-you-should-know-about-fragment-urls/](https://blog.httpwatch.com/2011/03/01/6-things-you-should-know-about-fragment-urls/" target="_blank)
+* <a href="https://blog.httpwatch.com/2011/03/01/6-things-you-should-know-about-fragment-urls/" target="_blank">https://blog.httpwatch.com/2011/03/01/6-things-you-should-know-about-fragment-urls/</a>

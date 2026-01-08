@@ -14,4 +14,4 @@ Lastly, I wanted to use an easier way to create posts. So, with the time I had, 
 
 Anyways, I hope to show some of this off in a future post and if you want, you can look at the source used to create this site.
 
-[https://github.com/ajgoldenwings/AnthonyJamesPearson](https://github.com/ajgoldenwings/AnthonyJamesPearson/tree/2017-October-Branch" target="_blank)
+<a href="https://github.com/ajgoldenwings/AnthonyJamesPearson/tree/2017-October-Branch" target="_blank">https://github.com/ajgoldenwings/AnthonyJamesPearson</a>

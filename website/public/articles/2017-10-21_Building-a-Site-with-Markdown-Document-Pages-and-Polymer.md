@@ -20,23 +20,26 @@ But not really. So, let's begin and fill in some details.
 
 If you have not, install Node.js.
 
-[nodejs.org](https://nodejs.org/" target="_blank)
+<a href="https://nodejs.org/" target="_blank">nodejs.org</a>
 
 Then make sure you have installed the Polymer CLI.
 
-[Polymer CLI](https://www.polymer-project.org/2.0/docs/tools/polymer-cli" target="_blank)
+<a href="https://www.polymer-project.org/2.0/docs/tools/polymer-cli" target="_blank">Polymer CLI</a>
 
 You can probably tell you may need to familiarize yourself with polymer. Yes, please do, but I will try my best to go through this post in detail.
 
 Once you have installed the CLI, you can start with an empty site. Find a good workspace location in your computer and in a command prompt/terminal navagate to that location. Then run this command:
 
+```bash
 polymer init
+```
 
 Then choose polymer-2-application and follow the prompts. Once it finishes, lets include two dependencies with commands:
 
+```bash
 bower install --save PolymerElements/marked-element
-
 bower install --save PolymerElements/iron-pages
+```
 
 Make sure you run these commands within the same folder as the project since the dependencies are stores within the bower_components folder.
 
@@ -46,9 +49,9 @@ Once it finishes, open it up in an editor and open the main component file. It s
 <h2>Hello [[prop1]]!</h2>
 ```
 
-At the top you should see an import file. We will add the marked element and iron pages components after that. Also, lazy import the md files. You should add these files yourself in the current directory.  It should look like:
+At the top you should see an import file. We will add the marked element and iron pages components after that. Also, lazy import the md files. You should add these files yourself in the current directory. It should look like:
 
-```
+```html
 <link rel="import" href="../../bower_components/polymer/polymer-element.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="../../bower_components/marked-element/marked-element.html">
@@ -60,7 +63,7 @@ At the top you should see an import file. We will add the marked element and iro
 
 Within the class of the web component, we are going to add a function to get the file path of the Markdown documents. It should look like:
 
-```
+```javascript
 _currentDocumentFilepath(currentDocument) {
 	var currentDocument = currentDocument || 'home';
 	return currentDocument + '.md';
@@ -69,7 +72,7 @@ _currentDocumentFilepath(currentDocument) {
 
 Within the properties, we are going to add the variable currentDocument and currentDocumentFilepath. Change it to look like this:
 
-```
+```javascript
 static get properties() {
 	return {
 		currentDocument: {
@@ -77,22 +80,19 @@ static get properties() {
 			reflectToAttribute: true,
 			value: "home"
 		},
-
 		currentDocumentFilepath: {
 			type: String,
 			reflectToAttribute: true,
 			computed: '_currentDocumentFilepath(currentDocument)'
 		},
-		.
-		.
-		.
+		// ... other properties
 	};
 }
 ```
 
-Then lastly, in this file, we are going to add the HTML between the template tag. It should not look like:
+Then lastly, in this file, we are going to add the HTML between the template tag. It should look like:
 
-```
+```html
 <template>
 	<style>
 		:host {
@@ -100,12 +100,8 @@ Then lastly, in this file, we are going to add the HTML between the template tag
 		}
 	</style>
 	<h2>Hello [[prop1]]!</h2>
-
 	Current filepath: [[currentDocumentFilepath]]
-
-	<iron-pages selected="[[currentDocument]]"
-		attr-for-selected="name"
-		fallback-selection="home">
+	<iron-pages selected="[[currentDocument]]" attr-for-selected="name" fallback-selection="home">
 		<div name="home">
 			<marked-element>
 				<div slot="Markdown-html"></div>
@@ -128,9 +124,9 @@ Then lastly, in this file, we are going to add the HTML between the template tag
 </template>
 ```
 
-That is it. You can open the site by running
+That is it. You can open the site by running:
 
-```
+```bash
 polymer serve
 ```
 
@@ -141,11 +137,11 @@ You will probably have a couple issues when opening this, but it should look lik
 So, there are some missing features and there are ways to make this better. For instance, there is no navigation buttons to other Markdown Documents or you can just dynamically place the document file location within the Markdown element, but I leave this to you to figure out. Also, if you want, you can look at the differences between my blog and this post. This blog has this feature fully build out and you may cheat and evolve your Markdown site using my repositories on Github:
 
 
-[2017-10-20_Building-a-Site-with-Markdown-Document-Pages-and-Polymer](https://github.com/ajgoldenwings/2017-10-20_Building-a-Site-with-Markdown-Document-Pages-and-Polymer/" target="_blank)
+<a href="https://github.com/ajgoldenwings/2017-10-20_Building-a-Site-with-Markdown-Document-Pages-and-Polymer/" target="_blank">2017-10-20_Building-a-Site-with-Markdown-Document-Pages-and-Polymer</a>
 
 versus
 
-[AnthonyJamesPearson/tree/2017-October-Branch](https://github.com/ajgoldenwings/AnthonyJamesPearson/tree/2017-October-Branch" target="_blank)
+<a href="https://github.com/ajgoldenwings/AnthonyJamesPearson/tree/2017-October-Branch" target="_blank">AnthonyJamesPearson/tree/2017-October-Branch</a>
 
 
 
