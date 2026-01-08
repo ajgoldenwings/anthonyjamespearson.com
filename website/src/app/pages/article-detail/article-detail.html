@@ -1,22 +1,32 @@
 <div class="container mx-auto px-4 sm:px-0 py-8">
-  <div class="prose lg:prose-xl">
-    <!-- Back button -->
-    <div class="mb-6">
-      <button (click)="goBack()" class="btn btn-ghost btn-sm">
-        ← Back to Articles
-      </button>
-    </div>
+  <!-- Back button -->
+  <div class="mb-6">
+    <button (click)="goBack()" class="btn btn-ghost btn-sm">
+      ← Back to Articles
+    </button>
+  </div>
 
-    <!-- Article content -->
-    <div *ngIf="!articleNotFound">
+  <!-- Article content -->
+  @if (!articleNotFound) {
+    <!-- Article header -->
+    @if (articleDate) {
+        <div class="text-base-content/60 text-lg pb-3">
+          <time>{{ articleDate }}</time>
+        </div>
+    }
+
+    <!-- Markdown content -->
+    <div class="prose md:prose-lg lg:prose-xl">
       <markdown
         [src]="articlePath"
         (error)="onMarkdownError()">
       </markdown>
     </div>
+  }
 
-    <!-- Article not found -->
-    <div *ngIf="articleNotFound" class="text-center py-16">
+  <!-- Article not found -->
+  @if (articleNotFound) {
+    <div class="text-center py-16">
       <div class="hero">
         <div class="hero-content text-center">
           <div class="max-w-md">
@@ -27,5 +37,5 @@
         </div>
       </div>
     </div>
-  </div>
+  }
 </div>
