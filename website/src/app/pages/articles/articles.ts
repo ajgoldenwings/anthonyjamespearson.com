@@ -22,6 +22,12 @@ interface Article {
 export class Articles {
   articles: Article[] = [
     {
+      id: '2026-01-09_The-Tax-Calculator-That-Built-Itself',
+      title: 'The Tax Calculator That Built Itself',
+      date: '2026-01-09',
+      description: "My experiment with AI reveals how artificial intelligence might reshape software creation"
+    },
+    {
       id: '2018-05-20_Membership-Role-Policy-Based-Authorization-in-ASP-NET-Core',
       title: 'Membership Role Policy-Based Authorization in ASP.NET Core',
       date: '2018-05-20',

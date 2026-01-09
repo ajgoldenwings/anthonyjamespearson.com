@@ -1,41 +1,40 @@
 <div class="container mx-auto px-4 sm:px-0 py-8">
-  <!-- Back button -->
-  <div class="mb-6">
-    <button (click)="goBack()" class="btn btn-ghost btn-sm">
-      ← Back to Articles
-    </button>
-  </div>
+  <div class="prose lg:prose-xl">
+    <!-- Back button -->
+    <div class="mb-6">
+      <button (click)="goBack()" class="btn btn-ghost btn-sm">
+        ← Back to Articles
+      </button>
+    </div>
 
-  <!-- Article content -->
-  @if (!articleNotFound) {
-    <!-- Article header -->
-    @if (articleDate) {
-        <div class="text-base-content/60 text-lg pb-3">
-          <time>{{ articleDate }}</time>
-        </div>
-    }
+    <!-- Article content -->
+    @if (!articleNotFound) {
+      <!-- Article header -->
+      @if (articleDate) {
+          <div class="text-base-content/60 text-lg pb-3">
+            <time>{{ articleDate }}</time>
+          </div>
+      }
 
-    <!-- Markdown content -->
-    <div class="prose md:prose-lg lg:prose-xl">
       <markdown
         [src]="articlePath"
         (error)="onMarkdownError()">
       </markdown>
-    </div>
-  }
+    }
 
-  <!-- Article not found -->
-  @if (articleNotFound) {
-    <div class="text-center py-16">
-      <div class="hero">
-        <div class="hero-content text-center">
-          <div class="max-w-md">
-            <h1 class="text-5xl font-bold">404</h1>
-            <p class="py-6">Article not found. The article you're looking for doesn't exist or has been moved.</p>
-            <button (click)="goBack()" class="btn btn-primary">Back to Articles</button>
+    <!-- Article not found -->
+    @if (articleNotFound) {
+      <div class="text-center py-16">
+        <div class="hero">
+          <div class="hero-content text-center">
+            <div class="max-w-md">
+              <h1 class="text-5xl font-bold">404</h1>
+              <p class="py-6">Article not found. The article you're looking for doesn't exist or has been moved.</p>
+              <button (click)="goBack()" class="btn btn-primary">Back to Articles</button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  }
+    }
+  </div>
 </div>
