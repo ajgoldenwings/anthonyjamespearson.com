@@ -68,21 +68,36 @@
 
 
 <div
-  class="mt-28 md:mt-48 grayscale bg-cover bg-center"
+  class="mt-28 md:mt-48 bg-cover bg-center"
   style="background-image: url(/images/ajp_2.jpg);"
 >
-  <div class="px-3 sm:px-0 py-32 bg-base-100/90">
+  <div class="px-3 sm:px-0 py-32 bg-base-100/90 backdrop-blur-[2px]">
     <div class="container mx-auto">
-      <a class="btn sm:btn-lg md:btn-xl btn-outline" routerLink="/articles">Articles</a>
+      <div class="prose prose-lg sm:prose-2xl">
+        @if (latestArticle) {
+          <h3 class="not-prose text-lg font-semibold mb-3 text-base-content/80">
+            <span class="badge badge-outline badge-lg">{{ latestArticle.date | dateFormat }}</span> #LatestArticle
+          </h3>
+          <h2>
+            <a [routerLink]="['/articles', latestArticle.id]" class="not-prose link link-hover">
+              {{ latestArticle.title }}
+            </a>
+          </h2>
+
+          <p class="text-base-content/70">{{ latestArticle.description }}</p>
+        }
+
+        <a class="btn sm:btn-lg md:btn-xl btn-outline not-prose" routerLink="/articles">View all articles</a>
+      </div>
     </div>
   </div>
 </div>
 
 <div
-  class="grayscale bg-cover bg-center"
+  class="bg-cover bg-center"
   style="background-image: url(/images/ajp_3.jpg);"
 >
-  <div class="px-3 sm:px-0 py-32 bg-base-100/90">
+  <div class="px-3 sm:px-0 py-32 bg-base-100/90 backdrop-blur-[2px]">
     <div class="container mx-auto">
       <a class="btn sm:btn-lg md:btn-xl btn-outline" routerLink="/about">About</a>
     </div>

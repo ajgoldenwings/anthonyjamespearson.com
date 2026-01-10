@@ -12,7 +12,7 @@
       <!-- Article header -->
       @if (articleDate) {
           <div class="text-base-content/60 text-lg pb-3">
-            <time>{{ articleDate }}</time>
+            <time>{{ articleDate | dateFormat }}</time>
           </div>
       }
 

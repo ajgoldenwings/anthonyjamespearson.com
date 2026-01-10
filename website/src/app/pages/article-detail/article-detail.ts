@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 import { CommonModule } from '@angular/common';
+import { DateFormatPipe } from '../../pipes/date-format.pipe';
 
 @Component({
   selector: 'app-article-detail',
   templateUrl: './article-detail.html',
-  imports: [MarkdownModule, CommonModule]
+  imports: [MarkdownModule, CommonModule, DateFormatPipe]
 })
 export class ArticleDetail implements OnInit {
   articlePath: string = '';
   articleNotFound: boolean = false;
   articleDate: string = '';
+  articleTitle: string = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -35,15 +37,12 @@ export class ArticleDetail implements OnInit {
     const dateMatch = articleId.match(/^(\d{4})-(\d{2})-(\d{2})_/);
 
     if (dateMatch) {
-      const [, year, month, day] = dateMatch;
-      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+      // Store the raw date string for the pipe to format
+      this.articleDate = `${dateMatch[1]}-${dateMatch[2]}-${dateMatch[3]}`;
 
-      // Format date as "Month DD, YYYY"
-      this.articleDate = date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+      // Extract title part (after date prefix)
+      const titlePart = articleId.replace(/^\d{4}-\d{2}-\d{2}_/, '');
+      this.articleTitle = titlePart.replace(/[-_]/g, ' ');
     }
   }
 
