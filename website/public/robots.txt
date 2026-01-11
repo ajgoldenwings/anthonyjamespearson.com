@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://anthonyjamespearson.com/sitemap.xml
+
+# Disallow crawling of admin or private areas (if any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Allow crawling of all public content
+Allow: /articles/
+Allow: /about/
+Allow: /images/
+
+# Crawl delay (optional - be respectful to search engines)
+Crawl-delay: 1
