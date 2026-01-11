@@ -98,4 +98,19 @@ export class ArticleService {
   getArticleById(id: string): Article | null {
     return this.articles.find(article => article.id === id) || null;
   }
+
+  searchArticles(query: string): Article[] {
+    if (!query.trim()) {
+      return this.getAllArticles();
+    }
+
+    const searchTerm = query.toLowerCase().trim();
+
+    return this.articles
+      .filter(article =>
+        article.title.toLowerCase().includes(searchTerm) ||
+        article.description.toLowerCase().includes(searchTerm)
+      )
+      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  }
 }
