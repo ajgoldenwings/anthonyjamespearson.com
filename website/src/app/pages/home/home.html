@@ -27,7 +27,7 @@
     </p>
 
 
-    <div class="stats shadow stats-vertical md:stats-horizontal">
+    <div class="stats grid md:inline-grid shadow stats-vertical md:stats-horizontal">
       <div class="stat">
         <div class="stat-figure text-primary">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block h-8 w-8 stroke-current">
@@ -76,7 +76,7 @@
       <div class="prose prose-lg sm:prose-2xl">
         @if (latestArticle) {
           <h3 class="not-prose text-lg font-semibold mb-3 text-base-content/80">
-            <span class="badge badge-outline badge-lg">{{ latestArticle.date | dateFormat }}</span> #LatestArticle
+            <span class="badge badge-outline badge-lg me-2">{{ latestArticle.date | dateFormat }}</span> #LatestArticle
           </h3>
           <h2>
             <a [routerLink]="['/articles', latestArticle.id]" class="not-prose link link-hover">
@@ -99,7 +99,30 @@
 >
   <div class="px-3 sm:px-0 py-32 bg-base-100/90 backdrop-blur-[2px]">
     <div class="container mx-auto">
-      <a class="btn sm:btn-lg md:btn-xl btn-outline" routerLink="/about">About</a>
+      <div class="flex flex-wrap gap-3 sm:gap-5">
+        <a class="btn sm:btn-lg md:btn-xl btn-outline" routerLink="/about">About</a>
+        <a href="https://taxes.mountaintechnologiesllc.com/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-success">Taxes</a>
+        <a href="https://www.linkedin.com/in/anthony-james-pearson/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-info">LinkedIn</a>
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+        <a href="https://mountaintechnologiesllc.com/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-primary">Mountain Technologies LLC</a>
+        <a href="http://www.madlib.anthonyjamespearson.com/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-info">Madlib</a>
+        <a href="https://github.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-default">GitHub</a>
+        <a href="https://tixfix.ai/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-primary">TixFix</a>
+        <a href="https://www.youtube.com/@AnthonyPearson/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-error">YouTube</a>
+        <a href="https://xhslink.com/m/1pO73MrpjLT/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-error">RedNote—小红书</a>
+        <a href="https://yytt.media//" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-info">YYTT Media</a>
+        <a href="https://athenapearson.com/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Athena Pearson</a>
+        <a href="https://www.facebook.com/ajgoldenwings//" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-info">Facebook</a>
+        <a href="https://x.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-default">X</a>
+
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+        <a href="https://www.instagram.com/ajgoldenwings/" target="_blank" class="btn sm:btn-lg md:btn-xl btn-outline btn-secondary">Instagram</a>
+
+      </div>
     </div>
   </div>
 </div>

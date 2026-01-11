@@ -103,25 +103,18 @@ Open this file. With the script that displayed in the Firebase console, modify i
 
 ![](/images/ReactFirebase_Day0_09.png "fire.js file")
 
-`import firebase from 'firebase'`
-
-`var config = {`
-
-`  apiKey: "AIzaSyBHujWjX2dljQzuXuTA0LcqHd1neM-JA8k",`
-
-`  authDomain: "my-events-33491.firebaseapp.com",`
-
-`  databaseURL: "https://my-events-33491.firebaseio.com",`
-
-`  storageBucket: "my-events-33491.appspot.com",`
-
-`  messagingSenderId: "116436781293"`
-
-`};`
-
-`var fire = firebase.initializeApp(config);`
-
-`export default fire;`
+```
+import firebase from 'firebase'
+var config = {
+  apiKey: "AIzaSyBHujWjX2dljQzuXuTA0LcqHd1neM-JA8k",
+  authDomain: "my-events-33491.firebaseapp.com",
+  databaseURL: "https://my-events-33491.firebaseio.com",
+  storageBucket: "my-events-33491.appspot.com",
+  messagingSenderId: "116436781293"
+};
+var fire = firebase.initializeApp(config);
+export default fire;
+```
 
 Let's now change the rules for the database. We will make everything readable and writable. In the future, we will change this. Open `database.rules.json` and change the rules to true for both read and write. The file should look like below.
 
@@ -156,91 +149,51 @@ In the `src/App.js` file, we will be adding some lines to it. You may remove the
 
 ![](/images/ReactFirebase_Day0_10.png "App.js")
 
-`import React, { Component } from 'react';`
-
-`import logo from './logo.svg';`
-
-`import './App.css';`
-
-`import fire from './fire';`
-
-`class App extends Component {`
-
-` constructor(props) {`
-
-`   super(props);`
-
-`   this.state = { events: [] };`
-
-` }`
-
-` addEvent(e){`
-
-`   e.preventDefault();`
-
-`   fire.database().ref('events').push( this.eventNameEl.value );`
-
-`   this.eventNameEl.value = '';`
-
-` }`
-
-` componentWillMount(){`
-
-`   let eventsRef = fire.database().ref('events').orderByKey();`
-
-`   eventsRef.on('child_added', eventNew => {`
-
-`     let event = { text: eventNew.val(), id: eventNew.key };`
-
-`     this.setState({ events: [event].concat(this.state.events) });`
-
-`   })`
-
-` }`
-
-`  render() {`
-
-`    return (`
-
-`      <div className="App">`
-
-`        <header className="App-header">`
-
-`          <img src={logo} className="App-logo" alt="logo" />`
-
-`          <h1 className="App-title">Welcome to React</h1>`
-
-`        </header>`
-
-`        <p className="App-intro">`
-
-`          To get started, edit <code>src/App.js</code> and save to reload.`
-
-`        </p>`
-
-`       <form onSubmit={this.addEvent.bind(this)}>`
-
-`         <input type="text" ref={ el => this.eventNameEl = el }/>`
-
-`         <input type="submit"/>`
-
-`         {`
-
-`           this.state.events.map( event => <div key={event.id}>{event.text}</div> )`
-
-`         }`
-
-`       </form>`
-
-`      </div>`
-
-`    );`
-
-`  }`
-
-`}`
-
-`export default App;`
+```
+import React, { Component } from 'react';
+import logo from './logo.svg';
+import './App.css';
+import fire from './fire';
+class App extends Component {
+ constructor(props) {
+   super(props);
+   this.state = { events: [] };
+ }
+ addEvent(e){
+   e.preventDefault();
+   fire.database().ref('events').push( this.eventNameEl.value );
+   this.eventNameEl.value = '';
+ }
+ componentWillMount(){
+   let eventsRef = fire.database().ref('events').orderByKey();
+   eventsRef.on('child_added', eventNew => {
+     let event = { text: eventNew.val(), id: eventNew.key };
+     this.setState({ events: [event].concat(this.state.events) });
+   })
+ }
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <img src={logo} className="App-logo" alt="logo" />
+          <h1 className="App-title">Welcome to React</h1>
+        </header>
+        <p className="App-intro">
+          To get started, edit <code>src/App.js</code> and save to reload.
+        </p>
+       <form onSubmit={this.addEvent.bind(this)}>
+         <input type="text" ref={ el => this.eventNameEl = el }/>
+         <input type="submit"/>
+         {
+           this.state.events.map( event => <div key={event.id}>{event.text}</div> )
+         }
+       </form>
+      </div>
+    );
+  }
+}
+export default App;
+```
 
 Now let's deploy this.
 

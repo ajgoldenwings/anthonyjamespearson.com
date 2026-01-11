@@ -2,9 +2,9 @@
 
 Right now on my free time I am looking to make an application that has multi-tenancy and each tenant in the application has a series of memberships. Each membership has a type such as ‘Owner’. In this application we have Organizations as the tenants and each user can have multiple memberships. 
 
-So the issue is how do we provide and restrict access to the organization pages depending on the users membership or if it exists at all?
+So the issue is: how do we provide and restrict access to the organization pages depending on the user's membership or if it exists at all?
 
-One way is to check the role on each action and redirect the user if they do not have privilege like below.
+One way is to check the role on each action and redirect the user if they do not have the privilege, like below.
 
 ![](/images/2018-05-20_01.png "Edit Action")
 
@@ -14,7 +14,7 @@ To remedy this, we used the ‘[Authorize]’ attribute with a Policy that is in
 
 ![](/images/2018-05-20_02.png "Edit Action with Policy")
 
-In the startup we added a few lines that adds the requirements. You can see the class being sent with a parameter for what to check for.
+In the startup, we added a few lines that add the requirements. You can see the class being sent with a parameter for what to check for.
 
 ![](/images/2018-05-20_03.png "Added Startup Code")
 
@@ -30,4 +30,4 @@ You can see the red box shows the logic in the first image and handles what is d
 
 ![](/images/2018-05-20_06.png "Access Denied")
 
-Anyways, I hope this helps anyone who is looking to do something similar. Also, please send me any suggestions as this is an evolving project. 
+Anyway, I hope this helps anyone who is looking to do something similar. Also, please send me any suggestions as this is an evolving project. 
