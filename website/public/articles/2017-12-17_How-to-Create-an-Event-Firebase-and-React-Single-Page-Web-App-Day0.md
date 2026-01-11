@@ -1,12 +1,12 @@
 # How to Create an Event Firebase and React Single Page Web App: Day 0
 
 ## Introduction to the Series
-First off, welcome to my site and the first of this series. I believe that if you are looking at this, you are somebody who may be new to web development or who knows a few things but just don't know how to string everything together. If you are looking to build a single page web application from scratch, your in the right place. We will start with setting up the basics and then begin adding a list of things that every app needs. What are theses?
+First off, welcome to my site and the first of this series. I believe that if you are looking at this, you are somebody who may be new to web development or who knows a few things but just doesn't know how to string everything together. If you are looking to build a single page web application from scratch, you're in the right place. We will start with setting up the basics and then begin adding a list of things that every app needs. What are these?
 
 They are:
 
 * A Single Page (Single Page Application)
-* A Asynchronous List (Event List)
+* An Asynchronous List (Event List)
 * Authentication (Administer your Events and Not Others)
 * Get a Domain for your App
 * Access to the Camera Media Device
@@ -14,45 +14,45 @@ They are:
 * Item Associations (Who is Going to What Event)
 
 ## Introduction to Day 0
-You will be surprised on how fast it is to develop a solution locally and deploy it to a hosting site. This should be as basic as possible just to get something running but expandable for the next parts of this series.
+You will be surprised by how fast it is to develop a solution locally and deploy it to a hosting site. This should be as basic as possible just to get something running but expandable for the next parts of this series.
 
-It helps to know a few things of the web or a framework in JavaScript but I know that everyone does not know everything. So I may be a little verbose.
+It helps to know a few things about the web or a framework in JavaScript, but I know that everyone doesn't know everything. So I may be a little verbose.
 
 If you have not installed <a href="https://nodejs.org/en/" target="_blank">Node.js</a>, please do so now.
 
-This will help installing React, getting important components, and deployment.
+This will help with installing React, getting important components, and deployment.
 
 ## Setting up Firebase
-The best reason to use Firebase is that it is extremely scalable with many built in tools. Getting something started is super simple and also **Free**! So go to <a href="https://firebase.google.com/" target="_blank">Firebase</a> and sign up.
+The best reason to use Firebase is that it is extremely scalable with many built-in tools. Getting something started is super simple and also **Free**! So go to <a href="https://firebase.google.com/" target="_blank">Firebase</a> and sign up.
 
 Be sure to check the pricing if you are interested in making an expanded application.
 
-Please sign in and add a new project. I am calling mine 'My Events' but you may give a different name and if you do be aware you may need make a couple changes here and there due to the name change.
+Please sign in and add a new project. I am calling mine 'My Events', but you may give it a different name. If you do, be aware you may need to make a couple of changes here and there due to the name change.
 
 ![](/images/ReactFirebase_Day0_00.png "Add Project")
 
 Once created, you should be brought to your control panel for managing your backend.
 
 ## Setting up React
-Now pull up your prefered terminal to enter some npm commands. I prefer doing mine right within my prefered text editor <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>.
+Now pull up your preferred terminal to enter some npm commands. I prefer doing mine right within my preferred text editor <a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>.
 
 
 ![](/images/ReactFirebase_Day0_01.png "Terminal")
 
 Make sure to have 'create-react-app' installed with command `npm i -g create-react-app`.
 
-Go to the parent folder where you want your application to reside in using `cd`.
+Go to the parent folder where you want your application to reside using `cd`.
 
-Since my application's name is 'My Events' I am going to run the command `create-react-app my-events`. This should create a directory and some things in it. Go into it with command `cd my-events`, then enter `npm start` to view it locally.
+Since my application's name is 'My Events', I am going to run the command `create-react-app my-events`. This should create a directory and some things in it. Go into it with the command `cd my-events`, then enter `npm start` to view it locally.
 
 You should see this in your browser on `http://localhost:3000/`
 
 ![](/images/ReactFirebase_Day0_02.png "Our Default App Site")
 
 ## Deploy to Firebase
-We have setup the default React application. Lets try to deploy it now.
+We have set up the default React application. Let's try to deploy it now.
 
-First we are going to create a folder and place our production ready source code by running command:
+First, we are going to create a folder and place our production-ready source code by running the command:
 
 `npm run build`
 
@@ -64,7 +64,7 @@ Now let's set up Firebase on our application. Run this command:
 
 `firebase init`
 
-You may have to run `firebase login` before running this command. Now, let's set up Firebase once you have been logged in and ran the `init` command. First press `enter` to proceed by default.
+You may have to run `firebase login` before running this command. Now, let's set up Firebase once you have logged in and run the `init` command. First, press `enter` to proceed by default.
 
 ![](/images/ReactFirebase_Day0_03.png "Proceed with firebase")
 
@@ -80,18 +80,18 @@ Keep the default for `What file should be used for Database Rules? (database.rul
 
 For our public directory we will want our build directory. Type `build` and press `enter`.
 
-We want to create a single page application so when it asks do not use the default of no and type `yes`.
+We want to create a single page application, so when it asks, do not use the default of "no" and type `yes`.
 
-We do not want to overwrite our `index.html` file so just say no.
+We do not want to overwrite our `index.html` file, so just say "no".
 
-That should be the last question. Now lets deploy!
+That should be the last question. Now let's deploy!
 
 `firebase deploy`
 
 ![](/images/ReactFirebase_Day0_06.png "Firebase Deploy")
 
 ## Using the Firebase Database
-Go to the <a href="https://console.firebase.google.com" target="_blank">Firebase console</a> and we will be modifying the script and adding it into our application. Using the scripts, we will be making creating a js file with this.
+Go to the <a href="https://console.firebase.google.com" target="_blank">Firebase console</a> and we will be modifying the script and adding it into our application. Using the scripts, we will be creating a js file with this.
 
 ![](/images/ReactFirebase_Day0_07.png "Firebase Database scripts")
 
@@ -99,7 +99,7 @@ In your `src` folder create a file called `fire.js`.
 
 ![](/images/ReactFirebase_Day0_08.png "Create fire.js")
 
-Open this file. With the script that displayed in the Firebase console modify it so it looks like below:
+Open this file. With the script that displayed in the Firebase console, modify it so it looks like below:
 
 ![](/images/ReactFirebase_Day0_09.png "fire.js file")
 
@@ -123,7 +123,7 @@ Open this file. With the script that displayed in the Firebase console modify it
 
 `export default fire;`
 
-Lets now change the rules for the database. We will make everything readable and writable. In the future we will change this. Open `database.rules.json` and change the rules to true for both read and write. The file should look like below.
+Let's now change the rules for the database. We will make everything readable and writable. In the future, we will change this. Open `database.rules.json` and change the rules to true for both read and write. The file should look like below.
 
 ```
 {
@@ -136,7 +136,7 @@ Lets now change the rules for the database. We will make everything readable and
 
 Run `npm install -S firebase` to install the Firebase packages.
 
-That should be it for configuring the database. Now lets try deploying this.
+That should be it for configuring the database. Now let's try deploying this.
 
 ```bash
 npm run build
@@ -148,7 +148,7 @@ Then run:
 firebase deploy
 ```
 
-Nothing should change on the front end side but just a check to see if it all goes well.
+Nothing should change on the front-end side, but this is just a check to see if it all goes well.
 
 ## Creating our Events
 
@@ -242,7 +242,7 @@ In the `src/App.js` file, we will be adding some lines to it. You may remove the
 
 `export default App;`
 
-Now lets deploy this.
+Now let's deploy this.
 
 ```bash
 npm run build
@@ -254,11 +254,11 @@ Then run:
 firebase deploy
 ```
 
-When you navigate to your Hosting URL, you may will see your old site. To fix this all you have to do is `Empty Cache and Hard Reload` in the developer tools in Chrome or similar in another browser.
+When you navigate to your Hosting URL, you may see your old site. To fix this, all you have to do is `Empty Cache and Hard Reload` in the developer tools in Chrome or similar in another browser.
 
 ![](/images/ReactFirebase_Day0_11.png "App.js")
 
-That should be it for this day. Look forward for future days where we will look at even more interesting stuffs for your new app. In the meantime I recommend in learning React.
+That should be it for this day. Look forward to future days where we will look at even more interesting stuff for your new app. In the meantime, I recommend learning React.
 
 If you have any questions please reach out.
 

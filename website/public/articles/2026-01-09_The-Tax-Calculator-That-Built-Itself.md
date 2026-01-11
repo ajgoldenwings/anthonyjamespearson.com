@@ -13,7 +13,7 @@
   ></iframe>
 </div>
 
-Let me first begin and say welcome back to my blog and those new, welcome! I am Anthony, I work with software every day and when I find time, I may be tinkering with some tech or writing some code. So, what is this tax calculator?
+Let me first begin by saying welcome back to my blog, and to those who are new, welcome! I am Anthony. I work with software every day, and when I find time, I may be tinkering with some tech or writing some code. So, what is this tax calculator?
 
 Like many Americans considering a move to a different state or debating which state is the best (for taxes or anything), I wanted to understand how the tax burden would change state by state. But existing tax calculators were clunky, limited to single-state comparisons, and frustratingly static.
 
@@ -21,7 +21,7 @@ I did what any reasonable person might do in 2025: I asked an AI to build someth
 
 ![Screenshot of what was built](/images/2026-01-09_Mountain-Taxes-Screenshot.png)
 
-"I want to create a taxes website called Mountain Taxes..." I typed into my computer. A couple hours later, I had a fully functional web application that could compare income tax rates across all 50 states, income ranges, complete with interactive charts, and professional-grade infrastructure.
+"I want to create a taxes website called Mountain Taxes..." I typed into my computer. A couple of hours later, I had a fully functional web application that could compare income tax rates across all 50 states and income ranges, complete with interactive charts and professional-grade infrastructure.
 
 The catch? I didn't write a single line of code—well, okay, that's not entirely true, but I coded less than 1% of it.
 
@@ -39,7 +39,7 @@ The AI didn't just write code—it made architectural decisions, implemented sec
 
 If I—who describes myself as "definitely not a programmer"—can create sophisticated software through conversation alone, what happens to the traditional software industry?
 
-My *'predicted'* numbers are striking. My estimated numbers that hiring a development team to build something similar would have cost between $50,000 and $150,000 and taken three to six months. My build—with AI—cost me nothing and was completed in a single day. 
+My estimated numbers suggest that hiring a development team to build something similar would have cost between $50,000 and $150,000 and taken three to six months. My build—with AI—cost me nothing and was completed in a single day. 
 
 This isn't about replacing developers; it's about expanding who gets to be a developer.
 
@@ -57,7 +57,7 @@ More to come...
 
 ## Looking Forward
 
-For now, I am focused on improving my tax calculator. I'm planning to add historical data as the years go by, more sophisticated tax scenarios, and perhaps integration with financial planning tools. Of course, I know you all might crave a specific features—like support for additional state taxes or more detailed tax credits. But what about you? What features or integrations would you actually want to see?
+For now, I am focused on improving my tax calculator. I'm planning to add historical data as the years go by, more sophisticated tax scenarios, and perhaps integration with financial planning tools. Of course, I know you all might crave specific features—like support for additional state taxes or more detailed tax credits. But what about you? What features or integrations would you actually want to see?
 
 And it all started with a simple conversation.
 
