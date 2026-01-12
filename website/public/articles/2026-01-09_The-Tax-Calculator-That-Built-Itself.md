@@ -19,7 +19,7 @@ Like many Americans considering a move to a different state or debating which st
 
 I did what any reasonable person might do in 2025: I asked an AI to build something.
 
-![Screenshot of what was built](/images/2026-01-09_Mountain-Taxes-Screenshot.png)
+![Screenshot of what was built](/images/2026-01-09/2026-01-09_Mountain-Taxes-Screenshot.png)
 
 "I want to create a taxes website called Mountain Taxes..." I typed into my computer. A couple of hours later, I had a fully functional web application that could compare income tax rates across all 50 states and income ranges, complete with interactive charts and professional-grade infrastructure.
 
@@ -33,7 +33,7 @@ The development process unfolded like a series of increasingly detailed conversa
 
 The AI didn't just write code—it made architectural decisions, implemented security measures, and even wrote hundreds of automated tests.
 
-![Notepad of what I wanted](../images/2026-01-09-Notepad.png)
+![Notepad of what I wanted](../images/2026-01-09/2026-01-09-Notepad.png)
 
 ## The Democratization Question
 

@@ -10,6 +10,6 @@ So how to get started. You will have to sign up and register. You will need a ca
 
 Now that you signed up, you will most likely see a dashboard like this.
 
-![](/images/p7.jpg "AWS Console")
+![](/images/2016-05-15/p7.jpg "AWS Console")
 
 That is it for this post. Good job. You like did it without any instructions. Just like creating a Facebook account. Let me know if you have questions.

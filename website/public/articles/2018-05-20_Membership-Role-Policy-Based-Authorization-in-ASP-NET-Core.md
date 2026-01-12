@@ -6,28 +6,28 @@ So the issue is: how do we provide and restrict access to the organization pages
 
 One way is to check the role on each action and redirect the user if they do not have the privilege, like below.
 
-![](/images/2018-05-20_01.png "Edit Action")
+![](/images/2018-05-20/2018-05-20_01.png "Edit Action")
 
 But this will force us to write duplicate code for each method to check the authorization.
 
 To remedy this, we used the ‘[Authorize]’ attribute with a Policy that is inserted like this.
 
-![](/images/2018-05-20_02.png "Edit Action with Policy")
+![](/images/2018-05-20/2018-05-20_02.png "Edit Action with Policy")
 
 In the startup, we added a few lines that add the requirements. You can see the class being sent with a parameter for what to check for.
 
-![](/images/2018-05-20_03.png "Added Startup Code")
+![](/images/2018-05-20/2018-05-20_03.png "Added Startup Code")
 
 The ‘OrganizationRoleRequirement’ class with the parameter looks like below. 
 
-![](/images/2018-05-20_04.png "OrganizationRoleRequirement Class")
+![](/images/2018-05-20/2018-05-20_04.png "OrganizationRoleRequirement Class")
 
 The ‘services.AddTransient<IAuthorizationHandler, OrganizationRoleHandler>();’ sends a class ‘OrganizationRoleHandler’ that handles the authorization logic that looks like this.
 
-![](/images/2018-05-20_05.png "OrganizationRoleHandler Class")
+![](/images/2018-05-20/2018-05-20_05.png "OrganizationRoleHandler Class")
 
 You can see the red box shows the logic in the first image and handles what is done in the ‘context’ object. If there is no authorization, you get sent to this.
 
-![](/images/2018-05-20_06.png "Access Denied")
+![](/images/2018-05-20/2018-05-20_06.png "Access Denied")
 
 Anyway, I hope this helps anyone who is looking to do something similar. Also, please send me any suggestions as this is an evolving project. 

@@ -6,7 +6,7 @@ Here I am not going to go through all the steps to set it up but give resources 
 
 ### But I must require you to do somethings
 * __Windows__, has to be a Windows. You might be able to get by with linux, but I do not know if I will be able to help you with linux related steps.
-![](/images/p29.jpg "Free tier eligible")
+![](/images/2016-05-23/p29.jpg "Free tier eligible")
 * __Instance Location has to be in US East (N. Virginia)__ This is because you can only use the AWS Certificate Manager there. <a href="http://docs.aws.amazon.com/acm/latest/userguide/acm-regions.html" target="_blank">*It looks like you can now.</a>
 * __Follow a good tutorial__ Here are some below.
 
