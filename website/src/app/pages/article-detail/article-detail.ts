@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MarkdownModule } from 'ngx-markdown';
 import { CommonModule } from '@angular/common';
 import { DateFormatPipe } from '../../pipes/date-format.pipe';
 import { Meta, Title } from '@angular/platform-browser';
 import { ArticleService } from '../../services/article.service';
+import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-article-detail',
@@ -22,7 +23,9 @@ export class ArticleDetail implements OnInit {
     private router: Router,
     private meta: Meta,
     private title: Title,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   ngOnInit() {
@@ -82,6 +85,11 @@ export class ArticleDetail implements OnInit {
   }
 
   private addArticleStructuredData(article: any, url: string) {
+    // Only run in browser environment
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     const structuredData = {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
@@ -106,17 +114,17 @@ export class ArticleDetail implements OnInit {
     };
 
     // Remove existing structured data script if any
-    const existingScript = document.querySelector('script[type="application/ld+json"][data-article]');
+    const existingScript = this.document.querySelector('script[type="application/ld+json"][data-article]');
     if (existingScript) {
       existingScript.remove();
     }
 
     // Add new structured data
-    const script = document.createElement('script');
+    const script = this.document.createElement('script');
     script.type = 'application/ld+json';
     script.setAttribute('data-article', 'true');
     script.textContent = JSON.stringify(structuredData);
-    document.head.appendChild(script);
+    this.document.head.appendChild(script);
   }
 
   onMarkdownError() {

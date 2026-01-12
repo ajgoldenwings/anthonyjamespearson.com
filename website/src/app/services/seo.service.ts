@@ -1,5 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject, PLATFORM_ID } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
+import { DOCUMENT } from '@angular/common';
 
 export interface SEOData {
   title: string;
@@ -19,7 +21,9 @@ export class SEOService {
 
   constructor(
     private meta: Meta,
-    private title: Title
+    private title: Title,
+    @Inject(PLATFORM_ID) private platformId: Object,
+    @Inject(DOCUMENT) private document: Document
   ) {}
 
   updateSEOData(data: SEOData) {
@@ -47,35 +51,45 @@ export class SEOService {
   }
 
   private updateCanonicalUrl(url: string) {
+    // Only run in browser environment
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     // Remove existing canonical link
-    const existingCanonical = document.querySelector('link[rel="canonical"]');
+    const existingCanonical = this.document.querySelector('link[rel="canonical"]');
     if (existingCanonical) {
       existingCanonical.remove();
     }
 
     // Add new canonical link
-    const link = document.createElement('link');
+    const link = this.document.createElement('link');
     link.setAttribute('rel', 'canonical');
     link.setAttribute('href', url);
-    document.head.appendChild(link);
+    this.document.head.appendChild(link);
   }
 
   addStructuredData(data: any, id?: string) {
+    // Only run in browser environment
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
     // Remove existing structured data with the same ID
     if (id) {
-      const existing = document.querySelector(`script[type="application/ld+json"][data-id="${id}"]`);
+      const existing = this.document.querySelector(`script[type="application/ld+json"][data-id="${id}"]`);
       if (existing) {
         existing.remove();
       }
     }
 
     // Add new structured data
-    const script = document.createElement('script');
+    const script = this.document.createElement('script');
     script.type = 'application/ld+json';
     if (id) {
       script.setAttribute('data-id', id);
     }
     script.textContent = JSON.stringify(data);
-    document.head.appendChild(script);
+    this.document.head.appendChild(script);
   }
 }
