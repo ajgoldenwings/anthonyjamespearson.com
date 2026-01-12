@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MarkdownModule } from 'ngx-markdown';
-import { RouterLink } from '@angular/router';
+import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ArticleService } from '../../services/article.service';
@@ -27,33 +27,61 @@ export class Articles implements OnInit {
   constructor(
     private articleService: ArticleService,
     private meta: Meta,
-    private title: Title
+    private title: Title,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
     this.articles = this.articleService.getAllArticles();
-    this.filteredArticles = this.articles;
-    this.updateSEOTags();
+
+    // Subscribe to query parameter changes
+    this.route.queryParams.subscribe(params => {
+      const searchTerm = params['search'] || '';
+      this.searchQuery = searchTerm;
+      this.performSearch();
+      this.updateSEOTags();
+    });
   }
 
   onSearch() {
-    this.filteredArticles = this.articleService.searchArticles(this.searchQuery);
+    // Update URL with search parameter
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { search: this.searchQuery || null },
+      queryParamsHandling: 'merge'
+    });
   }
 
   clearSearch() {
     this.searchQuery = '';
-    this.filteredArticles = this.articles;
+    // Remove search parameter from URL
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { search: null },
+      queryParamsHandling: 'merge'
+    });
+  }
+
+  private performSearch() {
+    this.filteredArticles = this.articleService.searchArticles(this.searchQuery);
   }
 
   private updateSEOTags() {
-    const pageTitle = 'Articles | Anthony James Pearson - Software Development Blog';
-    const description = 'Technical articles and tutorials about .NET, AWS, Angular, React, and modern web development by Anthony James Pearson. Learn about software engineering, cloud architecture, and AI integration.';
+    let pageTitle = 'Articles | Anthony James Pearson - Software Development Blog';
+    let description = 'Technical articles and tutorials about .NET, AWS, Angular, React, and modern web development by Anthony James Pearson. Learn about software engineering, cloud architecture, and AI integration.';
+
+    // Update SEO for search results
+    if (this.searchQuery) {
+      pageTitle = `Search: "${this.searchQuery}" | Articles | Anthony James Pearson`;
+      description = `Search results for "${this.searchQuery}" - Find articles about ${this.searchQuery} and related topics in software development.`;
+    }
 
     this.title.setTitle(pageTitle);
     this.meta.updateTag({ name: 'description', content: description });
     this.meta.updateTag({ property: 'og:title', content: pageTitle });
     this.meta.updateTag({ property: 'og:description', content: description });
-    this.meta.updateTag({ property: 'og:url', content: 'https://anthonyjamespearson.com/articles' });
+    this.meta.updateTag({ property: 'og:url', content: `https://anthonyjamespearson.com/articles${this.searchQuery ? '?search=' + encodeURIComponent(this.searchQuery) : ''}` });
     this.meta.updateTag({ name: 'twitter:title', content: pageTitle });
     this.meta.updateTag({ name: 'twitter:description', content: description });
   }
