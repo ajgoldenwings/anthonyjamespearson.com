@@ -1,6 +1,6 @@
 # The Tax Calculator That Built Itself
 
-*A developer's experiment with AI reveals how artificial intelligence might reshape software creation*
+*A developer's experiment with AI reveals how artificial intelligence might reshape software creation*—<a href="https://taxes.mountaintechnologiesllc.com" target="_blank">Link to calculator</a>
 
 <div class="aspect-video w-full">
   <iframe

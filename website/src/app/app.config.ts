@@ -11,7 +11,6 @@ import { provideClientHydration, withEventReplay } from '@angular/platform-brows
 function customSanitize(html: string): string {
   // Allow YouTube iframe embeds while maintaining security for other content
   const youtubeIframeRegex = /<iframe[^>]*src="https:\/\/www\.youtube\.com\/embed\/[^"]*"[^>]*><\/iframe>/gi;
-
   if (html.match(youtubeIframeRegex)) {
     return html;
   }
