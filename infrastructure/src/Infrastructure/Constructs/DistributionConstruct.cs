@@ -44,6 +44,48 @@ namespace Infrastructure.Constructs
 
             var s3BucketOrigin = S3BucketOrigin.WithOriginAccessControl(props.Bucket);
 
+            // Create a Response Headers Policy with Content-Security-Policy
+            var responseHeadersPolicy = new ResponseHeadersPolicy(
+                this, "responseHeadersPolicy",
+                new ResponseHeadersPolicyProps
+                {
+                    ResponseHeadersPolicyName = $"{domainName.Replace(".", "-")}-security-headers",
+                    SecurityHeadersBehavior = new ResponseSecurityHeadersBehavior
+                    {
+                        ContentSecurityPolicy = new ResponseHeadersContentSecurityPolicy
+                        {
+                            ContentSecurityPolicy = "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-src https://www.youtube.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';",
+                            Override = true
+                        },
+                        StrictTransportSecurity = new ResponseHeadersStrictTransportSecurity
+                        {
+                            AccessControlMaxAge = Duration.Seconds(63072000),
+                            IncludeSubdomains = true,
+                            Override = true
+                        },
+                        ContentTypeOptions = new ResponseHeadersContentTypeOptions
+                        {
+                            Override = true
+                        },
+                        ReferrerPolicy = new ResponseHeadersReferrerPolicy
+                        {
+                            ReferrerPolicy = HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN,
+                            Override = true
+                        },
+                        XssProtection = new ResponseHeadersXSSProtection
+                        {
+                            Protection = true,
+                            ModeBlock = true,
+                            Override = true
+                        },
+                        FrameOptions = new ResponseHeadersFrameOptions
+                        {
+                            FrameOption = HeadersFrameOption.DENY,
+                            Override = true
+                        }
+                    }
+                });
+
             distribution = new Distribution(
                 this, "distribution",
                 new DistributionProps
@@ -56,7 +98,8 @@ namespace Infrastructure.Constructs
                         AllowedMethods = AllowedMethods.ALLOW_GET_HEAD,
                         CachedMethods = CachedMethods.CACHE_GET_HEAD,
                         ViewerProtocolPolicy = ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-                        CachePolicy = CachePolicy.CACHING_OPTIMIZED
+                        CachePolicy = CachePolicy.CACHING_OPTIMIZED,
+                        ResponseHeadersPolicy = responseHeadersPolicy
                     },
                     AdditionalBehaviors = new Dictionary<string, IBehaviorOptions>
                     {
@@ -68,7 +111,8 @@ namespace Infrastructure.Constructs
                             AllowedMethods = AllowedMethods.ALLOW_GET_HEAD,
                             CachedMethods = CachedMethods.CACHE_GET_HEAD,
                             ViewerProtocolPolicy = ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-                            CachePolicy = CachePolicy.CACHING_OPTIMIZED
+                            CachePolicy = CachePolicy.CACHING_OPTIMIZED,
+                            ResponseHeadersPolicy = responseHeadersPolicy
                         },
                         // Don't cache index.html to ensure SPA routing works correctly
                         ["/index.html"] = new BehaviorOptions
@@ -78,7 +122,8 @@ namespace Infrastructure.Constructs
                             AllowedMethods = AllowedMethods.ALLOW_GET_HEAD,
                             CachedMethods = CachedMethods.CACHE_GET_HEAD,
                             ViewerProtocolPolicy = ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-                            CachePolicy = CachePolicy.CACHING_DISABLED
+                            CachePolicy = CachePolicy.CACHING_DISABLED,
+                            ResponseHeadersPolicy = responseHeadersPolicy
                         }
                     },
                     ErrorResponses =
