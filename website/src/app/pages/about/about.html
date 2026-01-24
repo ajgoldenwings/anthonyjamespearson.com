@@ -1,46 +1,49 @@
 <div class="container py-8">
   <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-4 lg:gap-6 xl:gap-16 pb-10">
-    <div class="hidden md:block"></div>
+    <div class="hidden md:block" aria-hidden="true"></div>
     <article class="prose lg:prose-xl">
-      <h1>About</h1>
+      <h1 id="about-heading">About</h1>
     </article>
-    <div>
+    <figure class="md:order-first">
       <div class="relative overflow-hidden">
         @if (showBlurredImage) {
           <img
             src="/images/a1.png"
             class="absolute inset-0 w-72 lg:w-80 object-cover filter blur-xs transition-all duration-300 ease-in"
-            alt="Portfolio Image"
+            alt=""
+            aria-hidden="true"
           />
         }
 
         <img
           src="/images/a1-full.png"
           class="relative w-72 lg:w-80 object-cover opacity-0 duration-500 ease-out drop-shadow-xl hover:drop-shadow-2xl drop-shadow-primary/20 hover:drop-shadow-primary/20 transition"
-          alt="Portfolio Image—Full"
+          alt="Professional portrait of Anthony James Pearson"
           (load)="onImageLoad($event)"
+          width="320"
+          height="400"
         />
       </div>
-    </div>
-    <article class="prose lg:prose-xl">
+    </figure>
+    <article class="prose lg:prose-xl" aria-labelledby="about-heading">
       <p>
         Welcome to my personal website! I'm Anthony James Pearson, a passionate developer
-        with over 10 years of deep knowledge of full-stack software development with a wide latitude of domain knowledge in capital markets, manufacturing, insurance, education, e-commerce, criminal justice, EMS, and laboratories.
+        with over 10 years of deep knowledge of full-stack software development with a wide latitude of domain knowledge in capital markets, manufacturing, insurance, education, e-commerce, criminal justice, <abbr title="Emergency Medical Services">EMS</abbr>, and laboratories.
       </p>
       <p>
         This site is designed for fellow learners like you, and I hope it helps you tackle your challenges along the way. It's already been a lifesaver for me countless times—especially when I'm building new websites and can't quite remember how to set things up.
       </p>
       <p>
-        I am hoping to use this site to tell the stories of battle (wins or losses), new AI technologies, AWS serverless infrustructure code, and other unrealated technical topics.
+        I am hoping to use this site to tell the stories of battle (wins or losses), new <abbr title="Artificial Intelligence">AI</abbr> technologies, <abbr title="Amazon Web Services">AWS</abbr> serverless infrastructure code, and other unrelated technical topics.
       </p>
       <small>
         <blockquote>
-          This site is meant to serve you. Okay, yeah, maybe it might be promoting myself. But I don’t see you doing anything about it, so buzz off, haters. I’m just kidding—come back, I love you. Hey, just an alert: if you see anyone hating, especially if it’s me, hit them in the arm for me and tell them to not hate me cuz they ain't me.
+          This site is meant to serve you. Okay, yeah, maybe it might be promoting myself. But I don't see you doing anything about it, so buzz off, haters. I'm just kidding—come back, I love you. Hey, just an alert: if you see anyone hating, especially if it's me, hit them in the arm for me and tell them to not hate me cuz they ain't me.
         </blockquote>
       </small>
-      <em>
-        -Anthony James Pearson
-      </em>
+      <p>
+        <em>-Anthony James Pearson</em>
+      </p>
     </article>
   </div>
 </div>

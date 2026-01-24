@@ -9,3 +9,65 @@
   margin-inline: auto; /* Centers the container by default */
   padding-inline: 1rem; /* Adds default horizontal padding */
 }
+
+/* Accessibility: Enhanced focus states for keyboard navigation */
+@layer base {
+  /* Skip to main content link (screen reader accessible) */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  .sr-only:focus {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 9999;
+    width: auto;
+    height: auto;
+    padding: 1rem;
+    margin: 0;
+    overflow: visible;
+    clip: auto;
+    white-space: normal;
+    background-color: oklch(var(--b1));
+    color: oklch(var(--bc));
+    border: 2px solid oklch(var(--p));
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+  }
+
+  /* Enhanced focus visible states */
+  *:focus-visible {
+    outline: 2px solid oklch(var(--p));
+    outline-offset: 2px;
+  }
+
+  /* Ensure all interactive elements have visible focus */
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible,
+  [role="menuitem"]:focus-visible {
+    outline: 2px solid oklch(var(--p));
+    outline-offset: 2px;
+  }
+
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
