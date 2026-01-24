@@ -13,7 +13,7 @@
       <span class="sm:hidden">me</span> on LinkedIn.
       <a
         target="_blank"
-        class="text-primary font-normal focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+        class="text-primary font-normal"
         href="https://www.linkedin.com/in/anthony-james-pearson"
         rel="noopener"
         aria-label="View Anthony James Pearson's LinkedIn profile (opens in new tab)"
@@ -62,7 +62,7 @@
             target="_blank"
             rel="noopener"
             aria-label="View one of my YouTube Channels—@YYTTMedia - Yangyang Twantwan (opens in new tab)"
-            class="text-secondary hover:underline focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 rounded"
+            class="text-secondary hover:underline"
           >YouTube</a> Views
         </div>
         <div class="stat-value text-secondary" aria-label="306 thousand views">306K</div>
@@ -90,25 +90,25 @@
     <div class="container">
       <div class="prose prose-lg sm:prose-2xl">
         @if (latestArticle) {
-          <h2 id="latest-article-heading" class="not-prose text-lg font-semibold mb-3 text-base-content/80">
+          <h3 id="latest-article-heading" class="not-prose text-lg font-semibold mb-3 text-base-content/80">
             <span class="badge badge-outline badge-lg me-2" aria-label="Published on {{ latestArticle.date | dateFormat }}">{{ latestArticle.date | dateFormat }}</span>
             <span aria-label="Latest Article">#LatestArticle</span>
-          </h2>
-          <h3>
+          </h3>
+          <h2>
             <a
               [routerLink]="['/articles', latestArticle.id]"
-              class="not-prose link link-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 rounded"
+              class="not-prose link link-hover"
               [attr.aria-label]="'Read article: ' + latestArticle.title"
             >
               {{ latestArticle.title }}
             </a>
-          </h3>
+          </h2>
 
           <p class="text-base-content/70">{{ latestArticle.description }}</p>
         }
 
         <a
-          class="btn sm:btn-lg md:btn-xl btn-soft not-prose focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          class="btn sm:btn-lg md:btn-xl btn-soft not-prose"
           routerLink="/articles"
           aria-label="View all articles"
         >
@@ -123,130 +123,103 @@
   <div class="py-32 bg-base-100/90 backdrop-blur-[2px]">
     <div class="container">
       <h2 id="social-links-heading" class="sr-only">Social Links and Projects</h2>
-      <nav aria-label="External links and projects">
+      <nav class="not-prose" aria-label="External links and projects">
         <div class="flex flex-wrap gap-3 sm:gap-5 prose prose-lg sm:prose-2xl">
-          <a
-            class="btn sm:btn-lg md:btn-xl btn-soft grow focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          <a class="btn sm:btn-lg md:btn-xl btn-soft grow"
             routerLink="/about"
-            aria-label="Learn more about Anthony"
-          >
+            aria-label="Learn more about Anthony">
             About
           </a>
-          <a
-            href="https://athenapearson.com/"
+          <a href="https://athenapearson.com/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-secondary grow focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-            aria-label="Visit Athena Pearson's website (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-secondary grow"
+            aria-label="Visit Athena Pearson's website (opens in new tab)">
             Athena Pearson
           </a>
-          <a
-            href="https://www.facebook.com/ajgoldenwings/"
+          <a href="https://www.facebook.com/ajgoldenwings/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow focus:outline-none focus:ring-2 focus:ring-info focus:ring-offset-2"
-            aria-label="Visit Anthony's Facebook profile (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow"
+            aria-label="Visit Anthony's Facebook profile (opens in new tab)">
             Facebook
           </a>
-          <a
-            href="https://github.com/ajgoldenwings/"
+          <a href="https://github.com/ajgoldenwings/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-default grow focus:outline-none focus:ring-2 focus:ring-base-content focus:ring-offset-2"
-            aria-label="Visit Anthony's GitHub profile (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-default grow"
+            aria-label="Visit Anthony's GitHub profile (opens in new tab)">
             GitHub
           </a>
-          <a
-            href="https://www.instagram.com/ajgoldenwings/"
+          <a href="https://www.instagram.com/ajgoldenwings/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-secondary grow focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
-            aria-label="Visit Anthony's Instagram profile (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-secondary grow"
+            aria-label="Visit Anthony's Instagram profile (opens in new tab)">
             Instagram
           </a>
-          <a
-            href="https://www.linkedin.com/in/anthony-james-pearson/"
+          <a href="https://www.linkedin.com/in/anthony-james-pearson/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow focus:outline-none focus:ring-2 focus:ring-info focus:ring-offset-2"
-            aria-label="Visit Anthony's LinkedIn profile (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow"
+            aria-label="Visit Anthony's LinkedIn profile (opens in new tab)">
             LinkedIn
           </a>
-          <a
-            href="http://www.madlib.anthonyjamespearson.com/"
+          <a href="http://www.madlib.anthonyjamespearson.com/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow focus:outline-none focus:ring-2 focus:ring-info focus:ring-offset-2"
-            aria-label="Try Anthony's Madlib project (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow"
+            aria-label="Try Anthony's Madlib project (opens in new tab)">
             Madlib
           </a>
-          <a
-            href="https://mountaintechnologiesllc.com/"
+          <a href="https://mountaintechnologiesllc.com/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-primary grow focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            aria-label="Visit Mountain Technologies LLC website (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-primary grow"
+            aria-label="Visit Mountain Technologies LLC website (opens in new tab)">
             Mountain Technologies LLC
           </a>
-          <a
-            href="https://xhslink.com/m/1pO73MrpjLT/"
+          <a href="https://xhslink.com/m/1pO73MrpjLT/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-error grow focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2"
-            aria-label="Visit Anthony's RedNote profile (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-error grow"
+            aria-label="Visit Anthony's RedNote profile (opens in new tab)">
             RedNote—小红书
           </a>
-          <a
-            href="https://taxes.mountaintechnologiesllc.com/"
+          <a href="https://taxes.mountaintechnologiesllc.com/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-success grow focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2"
-            aria-label="Visit Tax Calculator project (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-success grow"
+            aria-label="Visit Tax Calculator project (opens in new tab)">
             Taxes
           </a>
-          <a
-            href="https://tixfix.ai/"
+          <a href="https://tixfix.ai/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-primary grow focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-            aria-label="Visit TixFix AI website (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-primary grow"
+            aria-label="Visit TixFix AI website (opens in new tab)">
             TixFix
           </a>
-          <a
-            href="https://x.com/ajgoldenwings/"
+          <a href="https://x.com/ajgoldenwings/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-default grow focus:outline-none focus:ring-2 focus:ring-base-content focus:ring-offset-2"
-            aria-label="Visit Anthony's X (Twitter) profile (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-default grow"
+            aria-label="Visit Anthony's X (Twitter) profile (opens in new tab)">
             X
           </a>
           <a
             href="https://www.youtube.com/@AnthonyPearson/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-error grow focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2"
-            aria-label="Visit Anthony's YouTube channel (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-error grow"
+            aria-label="Visit Anthony's YouTube channel (opens in new tab)">
             YouTube
           </a>
-          <a
-            href="https://yytt.media/"
+          <a href="https://yytt.media/"
             target="_blank"
             rel="noopener"
-            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow focus:outline-none focus:ring-2 focus:ring-info focus:ring-offset-2"
-            aria-label="Visit YYTT Media website (opens in new tab)"
-          >
+            class="btn sm:btn-lg md:btn-xl btn-soft btn-info grow"
+            aria-label="Visit YYTT Media website (opens in new tab)">
             YYTT Media
           </a>
         </div>
