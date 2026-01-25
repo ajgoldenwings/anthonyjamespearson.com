@@ -1,7 +1,7 @@
 <div class="container py-8">
-  <div class="grid grid-cols-1 md:grid-cols-[auto_1fr] gap-4 lg:gap-6 xl:gap-16 pb-10">
-    <div class="hidden md:block" aria-hidden="true"></div>
-    <article class="prose lg:prose-xl">
+  <div class="grid grid-cols-1 sm:grid-cols-[auto_1fr] gap-4 lg:gap-6 xl:gap-16 pb-10">
+    <div class="hidden sm:block" aria-hidden="true"></div>
+    <article class="prose sm:prose-xl">
       <h1 id="about-heading">About</h1>
     </article>
     <figure>
@@ -9,7 +9,7 @@
         @if (showBlurredImage) {
           <img
             src="/images/a1.png"
-            class="absolute inset-0 w-72 lg:w-80 object-cover filter blur-xs transition-all duration-300 ease-in"
+            class="absolute inset-0 w-44 sm:w-60 md:w-72 lg:w-80 object-cover filter blur-xs transition-all duration-300 ease-in"
             alt=""
             aria-hidden="true"
           />
@@ -17,7 +17,7 @@
 
         <img
           src="/images/a1-full.png"
-          class="relative w-72 lg:w-80 object-cover opacity-0 duration-500 ease-out drop-shadow-xl hover:drop-shadow-2xl drop-shadow-primary/20 hover:drop-shadow-primary/20 transition"
+          class="relative w-44 sm:w-60 md:w-72 lg:w-80 object-cover opacity-0 duration-500 ease-out drop-shadow-xl hover:drop-shadow-2xl drop-shadow-primary/20 hover:drop-shadow-primary/20 transition"
           alt="Professional portrait of Anthony James Pearson"
           (load)="onImageLoad($event)"
           width="320"
