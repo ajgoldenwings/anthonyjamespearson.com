@@ -3,6 +3,7 @@ import { Home } from './pages/home/home';
 import { About } from './pages/about/about';
 import { Articles } from './pages/articles/articles';
 import { ArticleDetail } from './pages/article-detail/article-detail';
+import { Privacy } from './pages/privacy/privacy';
 import { articleTitleResolver } from './resolvers/article-title.resolver';
 
 export const routes: Routes = [
@@ -13,5 +14,6 @@ export const routes: Routes = [
     path: 'articles/:id',
     component: ArticleDetail,
     title: articleTitleResolver
-  }
+  },
+  { path: 'privacy', component: Privacy, title: "Anthony – Privacy Policy" }
 ];
