@@ -29,6 +29,10 @@ namespace Infrastructure.Constructs
                 {
                     Email = false
                 },
+                UserVerification = new UserVerificationConfig
+                {
+                    EmailStyle = VerificationEmailStyle.LINK
+                },
                 StandardAttributes = new StandardAttributes
                 {
                     Email = new StandardAttribute

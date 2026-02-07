@@ -5,7 +5,6 @@ import {
   SignUpCommand,
   InitiateAuthCommand,
   GetUserCommand,
-  ConfirmSignUpCommand,
   ResendConfirmationCodeCommand,
   AuthFlowType
 } from '@aws-sdk/client-cognito-identity-provider';
@@ -63,7 +62,7 @@ export class AuthService {
       await this.client.send(command);
       return {
         success: true,
-        message: 'Sign up successful! Please check your email for verification code.'
+        message: 'Sign up successful! Please check your email for a verification link.'
       };
     } catch (error: any) {
       return {
@@ -73,28 +72,7 @@ export class AuthService {
     }
   }
 
-  async confirmSignUp(email: string, code: string): Promise<{ success: boolean; message: string }> {
-    try {
-      const command = new ConfirmSignUpCommand({
-        ClientId: environment.aws.userPoolClientId,
-        Username: email,
-        ConfirmationCode: code
-      });
-
-      await this.client.send(command);
-      return {
-        success: true,
-        message: 'Email verified successfully! You can now log in.'
-      };
-    } catch (error: any) {
-      return {
-        success: false,
-        message: error.message || 'Verification failed'
-      };
-    }
-  }
-
-  async resendConfirmationCode(email: string): Promise<{ success: boolean; message: string }> {
+  async resendVerificationEmail(email: string): Promise<{ success: boolean; message: string }> {
     try {
       const command = new ResendConfirmationCodeCommand({
         ClientId: environment.aws.userPoolClientId,
@@ -104,12 +82,12 @@ export class AuthService {
       await this.client.send(command);
       return {
         success: true,
-        message: 'Verification code resent to your email.'
+        message: 'Verification email resent. Please check your inbox.'
       };
     } catch (error: any) {
       return {
         success: false,
-        message: error.message || 'Failed to resend code'
+        message: error.message || 'Failed to resend verification email'
       };
     }
   }

@@ -13,11 +13,10 @@ export class Signup {
   email = signal('');
   password = signal('');
   confirmPassword = signal('');
-  verificationCode = signal('');
   errorMessage = signal('');
   successMessage = signal('');
   isLoading = signal(false);
-  showVerification = signal(false);
+  signupComplete = signal(false);
 
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -47,38 +46,17 @@ export class Signup {
 
     if (result.success) {
       this.successMessage.set(result.message);
-      this.showVerification.set(true);
+      this.signupComplete.set(true);
     } else {
       this.errorMessage.set(result.message);
     }
   }
 
-  async onVerify(): Promise<void> {
+  async resendEmail(): Promise<void> {
     this.errorMessage.set('');
     this.isLoading.set(true);
 
-    const result = await this.authService.confirmSignUp(
-      this.email(),
-      this.verificationCode()
-    );
-
-    this.isLoading.set(false);
-
-    if (result.success) {
-      this.successMessage.set(result.message);
-      setTimeout(() => {
-        this.router.navigate(['/account/login']);
-      }, 2000);
-    } else {
-      this.errorMessage.set(result.message);
-    }
-  }
-
-  async resendCode(): Promise<void> {
-    this.errorMessage.set('');
-    this.isLoading.set(true);
-
-    const result = await this.authService.resendConfirmationCode(this.email());
+    const result = await this.authService.resendVerificationEmail(this.email());
 
     this.isLoading.set(false);
 
@@ -87,5 +65,9 @@ export class Signup {
     } else {
       this.errorMessage.set(result.message);
     }
+  }
+
+  goToLogin(): void {
+    this.router.navigate(['/account/login']);
   }
 }

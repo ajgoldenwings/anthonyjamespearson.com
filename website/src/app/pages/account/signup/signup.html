@@ -15,7 +15,7 @@
         </div>
       }
 
-      @if (!showVerification()) {
+      @if (!signupComplete()) {
         <form (ngSubmit)="onSubmit()">
           <fieldset [disabled]="isLoading()" class="fieldset">
             <label class="label">Email</label>
@@ -67,48 +67,48 @@
           </fieldset>
         </form>
       } @else {
-        <form (ngSubmit)="onVerify()">
-          <fieldset [disabled]="isLoading()">
-            <label class="label">Verification Code</label>
-            <input
-              type="text"
-              placeholder="Enter code from email"
-              class="input w-full"
-              [value]="verificationCode()"
-              (input)="verificationCode.set($any($event.target).value)"
-              name="verificationCode"
-              required
-            />
+        <div class="text-center py-4">
+          <div class="mb-4">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-success" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-semibold mb-2">Check Your Email</h3>
+          <p class="text-sm mb-4">We've sent a verification link to <strong>{{ email() }}</strong></p>
+          <p class="text-sm text-base-content/70 mb-6">Click the link in the email to verify your account and complete signup.</p>
 
+          <div class="space-y-2">
             <button
-              type="submit"
-              class="btn btn-neutral mt-4 mb-4"
+              type="button"
+              class="btn btn-ghost btn-sm"
+              (click)="resendEmail()"
               [disabled]="isLoading()"
             >
               @if (isLoading()) {
-                <span class="loading loading-spinner"></span>
+                <span class="loading loading-spinner loading-xs"></span>
               }
-              Verify Email
+              Resend Verification Email
             </button>
 
             <button
               type="button"
-              class="btn btn-ghost btn-sm"
-              (click)="resendCode()"
-              [disabled]="isLoading()"
+              class="btn btn-neutral btn-sm"
+              (click)="goToLogin()"
             >
-              Resend Code
+              Go to Login
             </button>
-          </fieldset>
-        </form>
+          </div>
+        </div>
       }
 
-      <div class="divider">OR</div>
+      @if (!signupComplete()) {
+        <div class="divider">OR</div>
 
-      <p class="text-center">
-        Already have an account?
-        <a routerLink="/account/login" class="link link-primary">Login</a>
-      </p>
+        <p class="text-center">
+          Already have an account?
+          <a routerLink="/account/login" class="link link-primary">Login</a>
+        </p>
+      }
     </div>
   </div>
 </div>
