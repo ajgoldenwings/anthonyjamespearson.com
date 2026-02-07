@@ -34,11 +34,11 @@ namespace Infrastructure
             });
 
             // Add CognitoConstruct instantiation
-            // var cognitoConstruct = new CognitoConstruct(this, "CognitoConstruct", new CognitoConstructProps
-            // {
-            //     Name = props.Name,
-            //     DomainName = props.DomainName
-            // });
+            var cognitoConstruct = new CognitoConstruct(this, "CognitoConstruct", new CognitoConstructProps
+            {
+                Name = props.Name,
+                DomainName = props.DomainName
+            });
 
             // // Add DynamoDbConstruct instantiation
             // var dynamoDbConstruct = new DynamoDbConstruct(this, "DynamoDbConstruct", new DynamoDbConstructProps
