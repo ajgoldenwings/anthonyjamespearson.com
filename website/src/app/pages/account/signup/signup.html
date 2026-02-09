@@ -16,55 +16,70 @@
       }
 
       @if (!signupComplete()) {
-        <form (ngSubmit)="onSubmit()">
-          <fieldset [disabled]="isLoading()" class="fieldset">
+        <form (ngSubmit)="onSubmit()" class="fieldset">
+          <fieldset class="fieldset">
             <label class="label">Email</label>
             <input
               type="email"
               placeholder="email@example.com"
-              class="input w-full"
-              [value]="email()"
-              (input)="email.set($any($event.target).value)"
+              class="input validator w-full"
+              [(ngModel)]="email"
+              (blur)="validateEmail()"
               name="email"
+              [disabled]="isLoading()"
               required
             />
+            @if (!emailValid() && email()) {
+              <p class="validator-hint">Enter valid email address</p>
+            }
+          </fieldset>
 
+          <fieldset class="fieldset">
             <label class="label">Password</label>
             <input
               type="password"
               placeholder="Minimum 8 characters"
-              class="input w-full"
-              [value]="password()"
-              (input)="password.set($any($event.target).value)"
+              class="input validator w-full"
+              [(ngModel)]="password"
+              (blur)="validatePassword()"
               name="password"
+              [disabled]="isLoading()"
               required
             />
-            <div class="label">
-              <span class="label-text-alt">Must contain uppercase, lowercase, number, and symbol</span>
-            </div>
+            <p class="label">Must contain uppercase, lowercase, number, and symbol</p>
 
+            @if (!passwordValid() && password()) {
+              <p class="validator-hint">Password must be at least 8 characters</p>
+            }
+          </fieldset>
+
+          <fieldset class="fieldset">
             <label class="label">Confirm Password</label>
             <input
               type="password"
               placeholder="Re-enter your password"
               class="input w-full"
-              [value]="confirmPassword()"
-              (input)="confirmPassword.set($any($event.target).value)"
+              [(ngModel)]="confirmPassword"
+              (blur)="validateConfirmPassword()"
               name="confirmPassword"
+              [disabled]="isLoading()"
               required
             />
-
-            <button
-              type="submit"
-              class="btn btn-neutral mt-4"
-              [disabled]="isLoading()"
-            >
-              @if (isLoading()) {
-                <span class="loading loading-spinner"></span>
-              }
-              Sign Up
-            </button>
+            @if (!confirmPasswordValid() && confirmPassword()) {
+              <p class="validator-hint">Passwords do not match</p>
+            }
           </fieldset>
+
+          <button
+            type="submit"
+            class="btn btn-neutral mt-4"
+            [disabled]="isLoading()"
+          >
+            @if (isLoading()) {
+              <span class="loading loading-spinner"></span>
+            }
+            Sign Up
+          </button>
         </form>
       } @else {
         <div class="text-center py-4">

@@ -45,8 +45,26 @@ export class AuthService {
     }
   }
 
-  async signUp(email: string, password: string): Promise<{ success: boolean; message: string }> {
+  async signUp(email: string, password: string): Promise<{ success: boolean; message: string; autoLogin?: boolean }> {
     try {
+      // Validate environment configuration
+      if (!environment.aws.userPoolClientId) {
+        console.error('❌ Cognito User Pool Client ID is not configured');
+        return {
+          success: false,
+          message: 'Authentication service is not configured. Please check environment settings.'
+        };
+      }
+
+      console.log('🔵 Starting signup process...');
+      console.log('📋 Configuration:', {
+        region: environment.aws.region,
+        userPoolId: environment.aws.userPoolId,
+        clientId: environment.aws.userPoolClientId,
+        email: email,
+        isBrowser: this.isBrowser
+      });
+
       const command = new SignUpCommand({
         ClientId: environment.aws.userPoolClientId,
         Username: email,
@@ -59,15 +77,56 @@ export class AuthService {
         ]
       });
 
-      await this.client.send(command);
-      return {
-        success: true,
-        message: 'Sign up successful! Please check your email for a verification link.'
-      };
+      console.log('📤 Sending SignUpCommand to Cognito...');
+      const response = await this.client.send(command);
+      console.log('✅ Signup response received:', {
+        userSub: response.UserSub,
+        userConfirmed: response.UserConfirmed,
+        codeDeliveryDetails: response.CodeDeliveryDetails
+      });
+
+      // Auto-login after successful signup
+      console.log('🔐 Attempting auto-login after signup...');
+      const loginResult = await this.signIn(email, password);
+
+      if (loginResult.success) {
+        console.log('✅ Auto-login successful');
+        return {
+          success: true,
+          message: 'Sign up successful! You are now logged in.',
+          autoLogin: true
+        };
+      } else {
+        console.log('⚠️ Auto-login failed, user needs to verify email first');
+        return {
+          success: true,
+          message: 'Sign up successful! Please check your email for a verification link.',
+          autoLogin: false
+        };
+      }
     } catch (error: any) {
+      console.error('❌ Signup error:', {
+        name: error.name,
+        message: error.message,
+        code: error.$metadata?.httpStatusCode,
+        requestId: error.$metadata?.requestId,
+        fullError: error
+      });
+
+      // Provide more specific error messages
+      let errorMessage = error.message || 'Sign up failed';
+
+      if (error.name === 'UsernameExistsException') {
+        errorMessage = 'An account with this email already exists.';
+      } else if (error.name === 'InvalidPasswordException') {
+        errorMessage = 'Password does not meet requirements. Must be at least 8 characters with uppercase, lowercase, number, and symbol.';
+      } else if (error.name === 'InvalidParameterException') {
+        errorMessage = 'Invalid email or password format.';
+      }
+
       return {
         success: false,
-        message: error.message || 'Sign up failed'
+        message: errorMessage
       };
     }
   }

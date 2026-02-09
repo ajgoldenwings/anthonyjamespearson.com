@@ -8,7 +8,6 @@
     "build:website": "npm run build --prefix ./website",
     "build:all": "npm run build:website",
     "test": "echo \"Error: no test specified\" && exit 1",
-    
     "synth": "npm run build:all && cdk synth --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com",
     "diff": "npm run build:all && cdk diff --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com",
     "deploy:infra": "npm run build:all && cdk deploy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com --require-approval never",
@@ -32,6 +31,7 @@
   },
   "homepage": "https://github.com/ajgoldenwings/anthonyjamespearson.com#readme",
   "dependencies": {
-    "@aws-sdk/client-cloudformation": "^3.0.0"
+    "@aws-sdk/client-cloudformation": "^3.0.0",
+    "@aws-sdk/client-cognito-identity-provider": "^3.985.0"
   }
 }

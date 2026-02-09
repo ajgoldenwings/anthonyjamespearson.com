@@ -9,41 +9,47 @@
         </div>
       }
 
-      <form (ngSubmit)="onSubmit()">
-        <fieldset [disabled]="isLoading()" class="fieldset">
+      <form (ngSubmit)="onSubmit()" class="fieldset">
+        <fieldset class="fieldset">
           <label class="label">Email</label>
           <input
             type="email"
             placeholder="email@example.com"
-            class="input w-full"
-            [value]="email()"
-            (input)="email.set($any($event.target).value)"
+            class="input validator w-full"
+            [(ngModel)]="email"
+            (blur)="validateEmail()"
             name="email"
+            [disabled]="isLoading()"
             required
           />
+          @if (!emailValid() && email()) {
+              <p class="validator-hint">Enter valid email address</p>
+          }
+        </fieldset>
 
+        <fieldset class="fieldset">
           <label class="label">Password</label>
           <input
             type="password"
             placeholder="Enter your password"
             class="input w-full"
-            [value]="password()"
-            (input)="password.set($any($event.target).value)"
+            [(ngModel)]="password"
             name="password"
+            [disabled]="isLoading()"
             required
           />
-
-          <button
-            type="submit"
-            class="btn btn-neutral mt-4"
-            [disabled]="isLoading()"
-          >
-            @if (isLoading()) {
-              <span class="loading loading-spinner"></span>
-            }
-            Login
-          </button>
         </fieldset>
+
+        <button
+          type="submit"
+          class="btn btn-neutral mt-4"
+          [disabled]="isLoading()"
+        >
+          @if (isLoading()) {
+            <span class="loading loading-spinner"></span>
+          }
+          Login
+        </button>
       </form>
 
       <div class="divider">OR</div>
