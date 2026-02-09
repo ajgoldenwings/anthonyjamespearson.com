@@ -27,7 +27,7 @@ namespace Infrastructure.Constructs
                 },
                 AutoVerify = new AutoVerifiedAttrs
                 {
-                    Email = false
+                    Email = true
                 },
                 UserVerification = new UserVerificationConfig
                 {
