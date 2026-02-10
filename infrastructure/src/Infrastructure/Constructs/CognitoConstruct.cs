@@ -56,6 +56,16 @@ namespace Infrastructure.Constructs
                 RemovalPolicy = RemovalPolicy.DESTROY
             });
 
+            // Add Cognito domain for hosted UI (required for LINK verification style)
+            var userPoolDomain = new UserPoolDomain(this, "CognitoDomain", new UserPoolDomainProps
+            {
+                UserPool = UserPool,
+                CognitoDomain = new CognitoDomainOptions
+                {
+                    DomainPrefix = props.Name.ToLower()
+                }
+            });
+
             UserPoolClient = new UserPoolClient(this, "UserPoolClient", new UserPoolClientProps
             {
                 UserPool = UserPool,
@@ -78,6 +88,12 @@ namespace Infrastructure.Constructs
             {
                 Value = UserPoolClient.UserPoolClientId,
                 Description = "Cognito User Pool Client ID"
+            });
+
+            _ = new CfnOutput(this, "UserPoolDomain", new CfnOutputProps
+            {
+                Value = userPoolDomain.DomainName,
+                Description = "Cognito User Pool Domain"
             });
         }
     }
