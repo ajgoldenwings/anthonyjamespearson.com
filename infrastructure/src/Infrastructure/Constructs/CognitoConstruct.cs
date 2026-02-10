@@ -31,7 +31,9 @@ namespace Infrastructure.Constructs
                 },
                 UserVerification = new UserVerificationConfig
                 {
-                    EmailStyle = VerificationEmailStyle.LINK
+                    EmailStyle = VerificationEmailStyle.LINK,
+                    EmailSubject = "Verify your email",
+                    EmailBody = "Thanks for signing up! Click the link below to verify your email address: {##Verify Email##}"
                 },
                 StandardAttributes = new StandardAttributes
                 {
@@ -50,6 +52,7 @@ namespace Infrastructure.Constructs
                     RequireSymbols = true
                 },
                 AccountRecovery = AccountRecovery.EMAIL_ONLY,
+                Email = UserPoolEmail.WithCognito("noreply@verificationemail.com"),
                 RemovalPolicy = RemovalPolicy.DESTROY
             });
 
