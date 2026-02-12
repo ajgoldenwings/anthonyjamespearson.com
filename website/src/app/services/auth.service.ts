@@ -6,6 +6,8 @@ import {
   InitiateAuthCommand,
   GetUserCommand,
   ResendConfirmationCodeCommand,
+  ForgotPasswordCommand,
+  ConfirmForgotPasswordCommand,
   AuthFlowType
 } from '@aws-sdk/client-cognito-identity-provider';
 import { environment } from '../../environments/environment';
@@ -223,6 +225,74 @@ export class AuthService {
 
     if (this.isBrowser) {
       localStorage.removeItem('accessToken');
+    }
+  }
+
+  async forgotPassword(email: string): Promise<{ success: boolean; message: string }> {
+    try {
+      const command = new ForgotPasswordCommand({
+        ClientId: environment.aws.userPoolClientId,
+        Username: email
+      });
+
+      await this.client.send(command);
+      return {
+        success: true,
+        message: 'Password reset link sent! Please check your email.'
+      };
+    } catch (error: any) {
+      console.error('Forgot password error:', error);
+
+      let errorMessage = error.message || 'Failed to send reset link';
+
+      if (error.name === 'UserNotFoundException') {
+        // For security, don't reveal if user exists
+        return {
+          success: true,
+          message: 'If an account exists with this email, you will receive a password reset link.'
+        };
+      } else if (error.name === 'LimitExceededException') {
+        errorMessage = 'Too many attempts. Please try again later.';
+      }
+
+      return {
+        success: false,
+        message: errorMessage
+      };
+    }
+  }
+
+  async confirmForgotPassword(email: string, code: string, newPassword: string): Promise<{ success: boolean; message: string }> {
+    try {
+      const command = new ConfirmForgotPasswordCommand({
+        ClientId: environment.aws.userPoolClientId,
+        Username: email,
+        ConfirmationCode: code,
+        Password: newPassword
+      });
+
+      await this.client.send(command);
+      return {
+        success: true,
+        message: 'Password reset successful!'
+      };
+    } catch (error: any) {
+      console.error('Confirm forgot password error:', error);
+
+      let errorMessage = error.message || 'Failed to reset password';
+
+      if (error.name === 'CodeMismatchException') {
+        errorMessage = 'Invalid verification code. Please check your email and try again.';
+      } else if (error.name === 'ExpiredCodeException') {
+        errorMessage = 'Verification code has expired. Please request a new one.';
+      } else if (error.name === 'InvalidPasswordException') {
+        errorMessage = 'Password does not meet requirements. Must be at least 8 characters with uppercase, lowercase, number, and symbol.';
+      }
+
+      return {
+        success: false,
+        message: errorMessage
+      };
     }
   }
 }

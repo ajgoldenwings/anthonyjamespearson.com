@@ -17,6 +17,13 @@ namespace Infrastructure.Constructs
 
         internal CognitoConstruct(Construct scope, string id, CognitoConstructProps props = null) : base(scope, id)
         {
+            // Create custom message Lambda for password reset emails
+            var customMessageLambda = new CustomMessageLambda(this, "CustomMessageLambda", new CustomMessageLambdaProps
+            {
+                Name = props.Name,
+                WebsiteUrl = $"https://{props.DomainName}"
+            });
+
             UserPool = new UserPool(this, "UserPool", new UserPoolProps
             {
                 UserPoolName = $"{props.Name}-user-pool",
@@ -33,7 +40,7 @@ namespace Infrastructure.Constructs
                 {
                     EmailStyle = VerificationEmailStyle.LINK,
                     EmailSubject = "Verify your email",
-                    EmailBody = "Thanks for signing up! Click the link below to verify your email address: {##Verify Email##}"
+                    EmailBody = "Thanks for signing up to " + props.DomainName + "! Click the link below to verify your email address: {##Verify Email##}"
                 },
                 StandardAttributes = new StandardAttributes
                 {
@@ -53,6 +60,10 @@ namespace Infrastructure.Constructs
                 },
                 AccountRecovery = AccountRecovery.EMAIL_ONLY,
                 Email = UserPoolEmail.WithCognito("noreply@verificationemail.com"),
+                LambdaTriggers = new UserPoolTriggers
+                {
+                    CustomMessage = customMessageLambda.Function
+                },
                 RemovalPolicy = RemovalPolicy.DESTROY
             });
 
