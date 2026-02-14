@@ -1,5 +1,5 @@
-import { Component, signal, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Component, signal, inject, OnInit } from '@angular/core';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
@@ -10,13 +10,14 @@ import { AuthService } from '../../../services/auth.service';
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './login.html'
 })
-export class Login {
+export class Login implements OnInit {
   // Signal-based form fields
   email = signal('');
   password = signal('');
 
   // UI state signals
   errorMessage = signal('');
+  successMessage = signal('');
   isLoading = signal(false);
 
   // Validation signals
@@ -25,6 +26,16 @@ export class Login {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
+  ngOnInit(): void {
+    // Check if user was redirected after email verification
+    this.route.queryParams.subscribe(params => {
+      if (params['verified'] === 'true') {
+        this.successMessage.set('Your email has been verified! You can now log in.');
+      }
+    });
+  }
 
   // Validate email format
   validateEmail(): void {

@@ -17,13 +17,6 @@ namespace Infrastructure.Constructs
 
         internal CognitoConstruct(Construct scope, string id, CognitoConstructProps props = null) : base(scope, id)
         {
-            // Create custom message Lambda for password reset emails
-            var customMessageLambda = new CustomMessageLambda(this, "CustomMessageLambda", new CustomMessageLambdaProps
-            {
-                Name = props.Name,
-                WebsiteUrl = $"https://{props.DomainName}"
-            });
-
             UserPool = new UserPool(this, "UserPool", new UserPoolProps
             {
                 UserPoolName = $"{props.Name}-user-pool",
@@ -35,12 +28,6 @@ namespace Infrastructure.Constructs
                 AutoVerify = new AutoVerifiedAttrs
                 {
                     Email = true
-                },
-                UserVerification = new UserVerificationConfig
-                {
-                    EmailStyle = VerificationEmailStyle.LINK,
-                    EmailSubject = "Verify your email",
-                    EmailBody = "Thanks for signing up to " + props.DomainName + "! Click the link below to verify your email address: {##Verify Email##}"
                 },
                 StandardAttributes = new StandardAttributes
                 {
@@ -59,13 +46,39 @@ namespace Infrastructure.Constructs
                     RequireSymbols = true
                 },
                 AccountRecovery = AccountRecovery.EMAIL_ONLY,
-                Email = UserPoolEmail.WithCognito("noreply@verificationemail.com"),
-                LambdaTriggers = new UserPoolTriggers
-                {
-                    CustomMessage = customMessageLambda.Function
-                },
+                Email = UserPoolEmail.WithCognito("noreply@verificationemail.com"),///////////////////////////////////////////////////////////////////////////////////////////
                 RemovalPolicy = RemovalPolicy.DESTROY
             });
+
+            // Create verification Lambda and API
+            var verificationLambda = new VerificationLambdaConstruct(this, "VerificationLambda", new VerificationLambdaConstructProps
+            {
+                Name = props.Name,
+                WebsiteUrl = $"https://{props.DomainName}",
+                UserPool = UserPool
+            });
+
+            var verificationApi = new VerificationApiConstruct(this, "VerificationApi", new VerificationApiConstructProps
+            {
+                Name = props.Name,
+                VerificationFunction = verificationLambda.Function
+            });
+
+            var customMessageLambda = new CustomMessageLambda(this, "CustomMessageLambda", new CustomMessageLambdaProps
+            {
+                Name = props.Name,
+                WebsiteUrl = $"https://{props.DomainName}",
+                VerificationApiUrl = verificationApi.VerificationUrl
+            });
+
+            // Grant Cognito permission to invoke the Lambda
+            customMessageLambda.Function.AddPermission("CognitoInvoke", new Amazon.CDK.AWS.Lambda.Permission
+            {
+                Principal = new Amazon.CDK.AWS.IAM.ServicePrincipal("cognito-idp.amazonaws.com"),
+                SourceArn = UserPool.UserPoolArn
+            });
+
+            UserPool.AddTrigger(UserPoolOperation.CUSTOM_MESSAGE, customMessageLambda.Function);
 
             // Add Cognito domain for hosted UI (required for LINK verification style)
             var userPoolDomain = new UserPoolDomain(this, "CognitoDomain", new UserPoolDomainProps
@@ -86,7 +99,18 @@ namespace Infrastructure.Constructs
                     UserPassword = true,
                     UserSrp = true
                 },
-                PreventUserExistenceErrors = true
+                PreventUserExistenceErrors = true,
+                OAuth = new OAuthSettings
+                {
+                    Flows = new OAuthFlows
+                    {
+                        ImplicitCodeGrant = true
+                    },
+                    CallbackUrls = new[] 
+                    {
+                        $"https://{props.DomainName}/account/login"
+                    }
+                }
             });
 
             _ = new CfnOutput(this, "UserPoolId", new CfnOutputProps

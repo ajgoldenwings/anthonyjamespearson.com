@@ -10,6 +10,7 @@ namespace Infrastructure.Constructs
     {
         public string Name { get; set; }
         public string WebsiteUrl { get; set; }
+        public string VerificationApiUrl { get; set; }
     }
 
     public class CustomMessageLambda : Construct
@@ -27,8 +28,32 @@ exports.handler = async (event) => {
     console.log('Custom message trigger:', JSON.stringify(event, null, 2));
     
     const websiteUrl = process.env.WEBSITE_URL;
+    const verificationApiUrl = process.env.VERIFICATION_API_URL;
     
-    if (event.triggerSource === 'CustomMessage_ForgotPassword') {
+    if (event.triggerSource === 'CustomMessage_SignUp' || event.triggerSource === 'CustomMessage_ResendCode') {
+        const email = event.request.userAttributes.email;
+        const code = event.request.codeParameter;
+        const username = event.userName;
+        
+        // Create verification link that hits the API Gateway
+        const verifyUrl = `${verificationApiUrl}?username=${encodeURIComponent(username)}&code=${code}`;
+        
+        event.response.emailSubject = 'Verify your email';
+        event.response.emailMessage = `
+            <html>
+                <body>
+                    <h2>Welcome!</h2>
+                    <p>Thanks for signing up! Click the link below to verify your email address:</p>
+                    <p><a href=""${verifyUrl}"" style=""display: inline-block; padding: 12px 24px; background-color: #007bff; color: white; text-decoration: none; border-radius: 4px;"">Verify Email</a></p>
+                    <p>Or copy and paste this link into your browser:</p>
+                    <p>${verifyUrl}</p>
+                    <p>This link will expire in 24 hours.</p>
+                    <p>If you didn't sign up for this account, you can safely ignore this email.</p>
+                </body>
+            </html>
+        `;
+    }
+    else if (event.triggerSource === 'CustomMessage_ForgotPassword') {
         const email = event.request.userAttributes.email;
         const code = event.request.codeParameter;
         const resetUrl = `${websiteUrl}/account/reset-password?email=${encodeURIComponent(email)}&code=${code}`;
@@ -54,7 +79,8 @@ exports.handler = async (event) => {
 "),
                 Environment = new Dictionary<string, string>
                 {
-                    { "WEBSITE_URL", props.WebsiteUrl }
+                    { "WEBSITE_URL", props.WebsiteUrl },
+                    { "VERIFICATION_API_URL", props.VerificationApiUrl }
                 },
                 Timeout = Duration.Seconds(10)
             });

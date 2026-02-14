@@ -3,6 +3,12 @@
     <div class="card-body">
       <h2 class="card-title">Login</h2>
 
+      @if (successMessage()) {
+        <div role="alert" class="alert alert-success alert-soft">
+          <span>{{ successMessage() }}</span>
+        </div>
+      }
+
       @if (errorMessage()) {
         <div role="alert" class="alert alert-error alert-soft">
           <span>{{ errorMessage() }}</span>
