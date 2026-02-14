@@ -2,6 +2,7 @@ import { Component, signal, computed, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
+import { SignupStateService } from '../../services/signup-state.service';
 
 @Component({
   selector: 'app-header',
@@ -13,6 +14,7 @@ export class Header {
   protected readonly isMenuOpen = signal(false);
   private currentUrl = signal('');
   authService = inject(AuthService);
+  private signupStateService = inject(SignupStateService);
 
   protected readonly isAccountActive = computed(() => {
     return this.currentUrl().startsWith('/account');
@@ -36,5 +38,9 @@ export class Header {
 
   protected closeMenu(): void {
     this.isMenuOpen.set(false);
+  }
+
+  protected onSignInClick(): void {
+    this.signupStateService.triggerReset();
   }
 }

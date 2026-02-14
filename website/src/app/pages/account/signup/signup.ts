@@ -1,8 +1,9 @@
-import { Component, signal, inject } from '@angular/core';
+import { Component, signal, inject, effect, untracked } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
+import { SignupStateService } from '../../../services/signup-state.service';
 
 @Component({
   selector: 'app-signup',
@@ -29,6 +30,40 @@ export class Signup {
 
   private authService = inject(AuthService);
   private router = inject(Router);
+  private signupStateService = inject(SignupStateService);
+
+  constructor() {
+    // Use effect to watch for reset triggers
+    effect(() => {
+      // This will run whenever the reset trigger changes
+      var resetSignupTrigger = this.signupStateService.getResetTrigger();
+      console.log(`Effect triggered. Current resetSignupTrigger: ${resetSignupTrigger}`);
+
+      untracked(() => {
+        if (this.signupComplete()) {
+          this.resetForm();
+        }
+      });
+    });
+  }
+
+  private resetForm(): void {
+    // Reset all form fields
+    this.email.set('');
+    this.password.set('');
+    this.confirmPassword.set('');
+
+    // Reset validation states
+    this.emailValid.set(true);
+    this.passwordValid.set(true);
+    this.confirmPasswordValid.set(true);
+
+    // Reset alerts and UI state
+    this.errorMessage.set('');
+    this.successMessage.set('');
+    this.isLoading.set(false);
+    this.signupComplete.set(false);
+  }
 
   // Validate email format
   validateEmail(): void {

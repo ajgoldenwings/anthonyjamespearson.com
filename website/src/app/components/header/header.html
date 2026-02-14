@@ -26,7 +26,7 @@
           </svg>
         </a>
       } @else {
-        <a routerLink="/account/signup" [class.btn-active]="isAccountActive()" role="menuitem" class="btn btn-sm btn-soft btn-primary me-1" aria-label=">Sign In">
+        <a routerLink="/account/signup" (click)="onSignInClick()" [class.btn-active]="isAccountActive()" role="menuitem" class="btn btn-sm btn-soft btn-primary me-1" aria-label=">Sign In">
           Sign In
         </a>
       }
