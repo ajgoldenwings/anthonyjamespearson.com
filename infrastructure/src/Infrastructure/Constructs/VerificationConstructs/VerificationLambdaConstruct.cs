@@ -40,7 +40,8 @@ namespace Infrastructure.Constructs
                 Actions = new[] 
                 { 
                     "cognito-idp:AdminConfirmSignUp",
-                    "cognito-idp:AdminGetUser"
+                    "cognito-idp:AdminGetUser",
+                    "cognito-idp:AdminUpdateUserAttributes"
                 },
                 Resources = new[] { props.UserPool.UserPoolArn }
             }));

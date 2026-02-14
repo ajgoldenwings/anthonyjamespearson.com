@@ -12,7 +12,7 @@
     "diff": "npm run build:all && cdk diff --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com",
     "deploy:infra": "npm run build:all && cdk deploy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com --require-approval never",
     "deploy": "npm run build:all && cdk deploy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com",
-    "deploy:full": "npm run deploy:infra && npm run build:website && npm run deploy:infra",
+    "deploy:full": "npm run deploy:infra",
     "destroy": "cdk destroy --app \"dotnet run --project infrastructure/src/Infrastructure/Infrastructure.csproj\" --context name=anthonyjamespearson.com"
   },
   "repository": {

@@ -3,6 +3,7 @@ using Amazon.Lambda.APIGatewayEvents;
 using Amazon.CognitoIdentityProvider;
 using Amazon.CognitoIdentityProvider.Model;
 using System.Text.Json;
+using System.Linq;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
@@ -52,10 +53,14 @@ namespace VerificationLambda
 
                 var getUserResponse = await _cognitoClient.AdminGetUserAsync(getUserRequest);
                 
-                // Check if user is already confirmed
-                if (getUserResponse.UserStatus == UserStatusType.CONFIRMED)
+                // Check if user is already confirmed and email verified
+                var emailVerifiedAttr = getUserResponse.UserAttributes.FirstOrDefault(a => a.Name == "email_verified");
+                bool isEmailVerified = emailVerifiedAttr?.Value == "true";
+                
+                if (getUserResponse.UserStatus == UserStatusType.CONFIRMED && isEmailVerified)
                 {
                     context.Logger.LogLine($"User already verified: {username}");
+
                     return new APIGatewayProxyResponse
                     {
                         StatusCode = 302,
@@ -66,16 +71,39 @@ namespace VerificationLambda
                     };
                 }
 
-                // Verify the code and confirm the user
-                var confirmRequest = new AdminConfirmSignUpRequest
+                // Confirm the user if not already confirmed
+                if (getUserResponse.UserStatus != UserStatusType.CONFIRMED)
                 {
-                    UserPoolId = _userPoolId,
-                    Username = username
-                };
+                    var confirmRequest = new AdminConfirmSignUpRequest
+                    {
+                        UserPoolId = _userPoolId,
+                        Username = username
+                    };
 
-                await _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
+                    await _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
+                    context.Logger.LogLine($"User confirmed: {username}");
+                }
 
-                context.Logger.LogLine($"Successfully verified user: {username}");
+                // Always ensure email is marked as verified
+                if (!isEmailVerified)
+                {
+                    var updateAttributesRequest = new AdminUpdateUserAttributesRequest
+                    {
+                        UserPoolId = _userPoolId,
+                        Username = username,
+                        UserAttributes = new List<AttributeType>
+                        {
+                            new AttributeType
+                            {
+                                Name = "email_verified",
+                                Value = "true"
+                            }
+                        }
+                    };
+
+                    await _cognitoClient.AdminUpdateUserAttributesAsync(updateAttributesRequest);
+                    context.Logger.LogLine($"Email verified for user: {username}");
+                }
 
                 // Redirect to success page
                 return new APIGatewayProxyResponse

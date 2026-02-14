@@ -9,6 +9,7 @@ import { Signup } from './pages/account/signup/signup';
 import { ForgotPassword } from './pages/account/forgot-password/forgot-password';
 import { ResetPassword } from './pages/account/reset-password/reset-password';
 import { Settings } from './pages/account/settings/settings';
+import { VerificationSuccess } from './pages/account/verification-success/verification-success';
 import { articleTitleResolver } from './resolvers/article-title.resolver';
 
 export const routes: Routes = [
@@ -25,5 +26,6 @@ export const routes: Routes = [
   { path: 'account/signup', component: Signup, title: "Anthony – Sign Up" },
   { path: 'account/forgot-password', component: ForgotPassword, title: "Anthony – Forgot Password" },
   { path: 'account/reset-password', component: ResetPassword, title: "Anthony – Reset Password" },
+  { path: 'account/verification-success', component: VerificationSuccess, title: "Anthony – Email Verified" },
   { path: 'account/settings', component: Settings, title: "Anthony – Settings" }
 ];
