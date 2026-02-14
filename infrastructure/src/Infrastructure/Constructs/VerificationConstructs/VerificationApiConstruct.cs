@@ -36,7 +36,7 @@ namespace Infrastructure.Constructs
 
             // VerificationUrl = $"{Api.Url}verify";
             // TODO: replace us-east-1, prod with context values
-            VerificationUrl = Fn.Join("", new[] { Api.RestApiId, ".execute-api.us-east-1.amazonaws.com/prod/verify" });
+            VerificationUrl = Fn.Join("", new[] { "https://", Api.RestApiId, ".execute-api.us-east-1.amazonaws.com/prod/verify" });
 
             _ = new CfnOutput(this, "VerificationApiUrl", new CfnOutputProps
             {
