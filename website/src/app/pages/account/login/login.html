@@ -1,72 +1,66 @@
-<div class="flex items-center justify-center mt-2 sm:mt-8 md:mt-14 lg:mt-20">
-  <div class="card lg:card-lg xl:card-xl w-full sm:max-w-md lg:max-w-lg bg-base-200/70 border border-base-300 rounded-none sm:rounded-box sm:shadow-xl">
-    <div class="card-body">
-      <h2 class="card-title">Login</h2>
-
-      @if (successMessage()) {
-        <div role="alert" class="alert alert-success alert-soft">
-          <span>{{ successMessage() }}</span>
-        </div>
-      }
-
-      @if (errorMessage()) {
-        <div role="alert" class="alert alert-error alert-soft">
-          <span>{{ errorMessage() }}</span>
-        </div>
-      }
-
-      <form (ngSubmit)="onSubmit()" class="fieldset">
-        <fieldset class="fieldset">
-          <label class="label">Email</label>
-          <input
-            type="email"
-            placeholder="email@example.com"
-            class="input validator w-full"
-            [(ngModel)]="email"
-            (blur)="validateEmail()"
-            name="email"
-            [disabled]="isLoading()"
-            required
-          />
-          @if (!emailValid() && email()) {
-              <p class="validator-hint">Enter valid email address</p>
-          }
-        </fieldset>
-
-        <fieldset class="fieldset">
-          <label class="label">Password</label>
-          <input
-            type="password"
-            placeholder="Enter your password"
-            class="input w-full"
-            [(ngModel)]="password"
-            name="password"
-            [disabled]="isLoading()"
-            required
-          />
-        </fieldset>
-        <a routerLink="/account/forgot-password" class="label link link-primary">
-          Forgot password?
-        </a>
-
-        <button
-          type="submit"
-          class="btn btn-neutral mt-4"
-          [disabled]="isLoading()"
-        >
-          @if (isLoading()) {
-            <span class="loading loading-spinner"></span>
-          }
-          Login
-        </button>
-      </form>
-
-      <div class="divider text-sm">OR</div>
-
-      <p class="text-sm text-center">
-        Don't have an account?
-        <a routerLink="/account/signup" class="link link-primary">Sign up</a>
-      </p>
+<app-account-card title="Login">
+  @if (successMessage()) {
+    <div role="alert" class="alert alert-success alert-soft">
+      <span>{{ successMessage() }}</span>
     </div>
-  </div>
-</div>
+  }
+
+  @if (errorMessage()) {
+    <div role="alert" class="alert alert-error alert-soft">
+      <span>{{ errorMessage() }}</span>
+    </div>
+  }
+
+  <form (ngSubmit)="onSubmit()" class="fieldset">
+    <fieldset class="fieldset">
+      <label class="label">Email</label>
+      <input
+        type="email"
+        placeholder="email@example.com"
+        class="input validator w-full"
+        [(ngModel)]="email"
+        (blur)="validateEmail()"
+        name="email"
+        [disabled]="isLoading()"
+        required
+      />
+      @if (!emailValid() && email()) {
+          <p class="validator-hint">Enter valid email address</p>
+      }
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <label class="label">Password</label>
+      <input
+        type="password"
+        placeholder="Enter your password"
+        class="input w-full"
+        [(ngModel)]="password"
+        name="password"
+        [disabled]="isLoading()"
+        required
+      />
+    </fieldset>
+    <a routerLink="/account/forgot-password" class="label link link-primary">
+      Forgot password?
+    </a>
+
+    <button
+      type="submit"
+      class="btn btn-neutral mt-4"
+      [disabled]="isLoading()"
+    >
+      @if (isLoading()) {
+        <span class="loading loading-spinner"></span>
+      }
+      Login
+    </button>
+  </form>
+
+  <div class="divider text-sm">OR</div>
+
+  <p class="text-sm text-center">
+    Don't have an account?
+    <a routerLink="/account/signup" class="link link-primary">Sign up</a>
+  </p>
+</app-account-card>

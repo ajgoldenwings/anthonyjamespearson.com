@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { SignupStateService } from '../../../services/signup-state.service';
+import { AccountCard } from '../../../components/account-card/account-card';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule],
+  imports: [CommonModule, RouterLink, FormsModule, AccountCard],
   templateUrl: './signup.html'
 })
 export class Signup {
