@@ -4,6 +4,7 @@ import { About } from './pages/about/about';
 import { Articles } from './pages/articles/articles';
 import { ArticleDetail } from './pages/article-detail/article-detail';
 import { Privacy } from './pages/privacy/privacy';
+import { Terms } from './pages/terms/terms';
 import { Login } from './pages/account/login/login';
 import { Signup } from './pages/account/signup/signup';
 import { ForgotPassword } from './pages/account/forgot-password/forgot-password';
@@ -22,6 +23,7 @@ export const routes: Routes = [
     title: articleTitleResolver
   },
   { path: 'privacy', component: Privacy, title: "Anthony – Privacy Policy" },
+  { path: 'terms', component: Terms, title: "Anthony – Terms and Conditions" },
   { path: 'account/login', component: Login, title: "Anthony – Login" },
   { path: 'account/signup', component: Signup, title: "Anthony – Sign Up" },
   { path: 'account/forgot-password', component: ForgotPassword, title: "Anthony – Forgot Password" },
