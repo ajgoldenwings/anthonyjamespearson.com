@@ -17,17 +17,20 @@ export class Signup {
   email = signal('');
   password = signal('');
   confirmPassword = signal('');
+  termsAccepted = signal(false);
 
   // UI state signals
   errorMessage = signal('');
   successMessage = signal('');
   isLoading = signal(false);
   signupComplete = signal(false);
+  formSubmitted = signal(false);
 
   // Computed validation signals
   emailValid = signal(true);
   passwordValid = signal(true);
   confirmPasswordValid = signal(true);
+  termsAcceptedValid = signal(true);
 
   private authService = inject(AuthService);
   private router = inject(Router);
@@ -53,17 +56,20 @@ export class Signup {
     this.email.set('');
     this.password.set('');
     this.confirmPassword.set('');
+    this.termsAccepted.set(false);
 
     // Reset validation states
     this.emailValid.set(true);
     this.passwordValid.set(true);
     this.confirmPasswordValid.set(true);
+    this.termsAcceptedValid.set(true);
 
     // Reset alerts and UI state
     this.errorMessage.set('');
     this.successMessage.set('');
     this.isLoading.set(false);
     this.signupComplete.set(false);
+    this.formSubmitted.set(false);
   }
 
   // Validate email format
@@ -95,6 +101,7 @@ export class Signup {
 
     this.errorMessage.set('');
     this.successMessage.set('');
+    this.formSubmitted.set(true);
 
     // Validate all fields
     this.validateEmail();
@@ -121,6 +128,15 @@ export class Signup {
       this.errorMessage.set('Passwords do not match');
       return;
     }
+
+    // Check if terms are accepted
+    if (!this.termsAccepted()) {
+      console.log('❌ Terms not accepted');
+      this.termsAcceptedValid.set(false);
+      this.errorMessage.set('You must accept the terms and conditions');
+      return;
+    }
+    this.termsAcceptedValid.set(true);
 
     console.log('📋 Form validation passed, calling auth service...');
     this.isLoading.set(true);

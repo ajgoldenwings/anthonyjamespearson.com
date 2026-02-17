@@ -66,6 +66,25 @@
         }
       </fieldset>
 
+      <fieldset class="fieldset">
+        <label class="label cursor-pointer justify-start gap-3">
+          <input
+            type="checkbox"
+            class="validator checkbox"
+            [(ngModel)]="termsAccepted"
+            name="termsAccepted"
+            [disabled]="isLoading()"
+            required
+          />
+          <span class="label-text">
+            I agree to the <a routerLink="/terms" class="link link-primary" target="_blank">Terms and Conditions</a>
+          </span>
+        </label>
+        @if (!termsAcceptedValid() && formSubmitted()) {
+          <p class="validator-hint">You must accept the terms and conditions</p>
+        }
+      </fieldset>
+
       <button
         type="submit"
         class="btn btn-neutral mt-4"
