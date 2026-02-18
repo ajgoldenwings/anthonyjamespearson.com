@@ -126,6 +126,8 @@ namespace VerificationLambda
                     }
                 };
 
+                context.Logger.LogLine($"Beginning to confirm and verify user...");
+
                 var adminConfirmSignUpAsync = _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
                 var adminUpdateUserAttributesAsync = _cognitoClient.AdminUpdateUserAttributesAsync(updateAttributesRequest);
                 await Task.WhenAll(adminConfirmSignUpAsync, adminUpdateUserAttributesAsync);

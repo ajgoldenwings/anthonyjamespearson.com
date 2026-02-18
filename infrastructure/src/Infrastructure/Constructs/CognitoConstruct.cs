@@ -46,7 +46,13 @@ namespace Infrastructure.Constructs
                     RequireSymbols = true
                 },
                 AccountRecovery = AccountRecovery.EMAIL_ONLY,
-                Email = UserPoolEmail.WithCognito("noreply@verificationemail.com"),///////////////////////////////////////////////////////////////////////////////////////////
+                Email = UserPoolEmail.WithSES(new UserPoolSESOptions
+                {
+                    FromEmail = "noreply@anthonyjamespearson.com",
+                    FromName = "Anthony James Pearson Noreply",
+                    SesRegion = "us-east-1",
+                    SesVerifiedDomain = "anthonyjamespearson.com"
+                }),
                 RemovalPolicy = RemovalPolicy.DESTROY
             });
 
