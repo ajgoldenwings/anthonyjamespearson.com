@@ -49,7 +49,7 @@ namespace Infrastructure.Constructs
                 Email = UserPoolEmail.WithSES(new UserPoolSESOptions
                 {
                     FromEmail = "noreply@anthonyjamespearson.com",
-                    FromName = "Anthony James Pearson Noreply",
+                    FromName = "Anthony James Pearson",
                     SesRegion = "us-east-1",
                     SesVerifiedDomain = "anthonyjamespearson.com"
                 }),
