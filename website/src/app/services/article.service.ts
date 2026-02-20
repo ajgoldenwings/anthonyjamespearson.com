@@ -7,6 +7,12 @@ import { Article } from '../models/article.model';
 export class ArticleService {
   private articles: Article[] = [
     {
+      id: '2026-02-19_My-Current-State-of-Infrastructure',
+      title: 'My Current State of Infrastructure',
+      date: '2026-02-19',
+      description: 'How I built a production-ready serverless architecture that powers this website—and what I learned along the way'
+    },
+    {
       id: '2026-01-09_The-Tax-Calculator-That-Built-Itself',
       title: 'The Tax Calculator That Built Itself',
       date: '2026-01-09',
