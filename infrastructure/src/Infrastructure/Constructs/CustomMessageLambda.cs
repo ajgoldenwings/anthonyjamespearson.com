@@ -4,26 +4,26 @@ using Amazon.CDK.AWS.IAM;
 using Constructs;
 using System.Collections.Generic;
 
-namespace Infrastructure.Constructs
+namespace Infrastructure.Constructs;
+
+internal class CustomMessageLambdaProps
 {
-    internal class CustomMessageLambdaProps
-    {
-        public string Name { get; set; }
-        public string WebsiteUrl { get; set; }
-        public string VerificationApiUrl { get; set; }
-    }
+    public string Name { get; set; }
+    public string WebsiteUrl { get; set; }
+    public string VerificationApiUrl { get; set; }
+}
 
-    public class CustomMessageLambda : Construct
-    {
-        public Function Function { get; }
+public class CustomMessageLambda : Construct
+{
+    public Function Function { get; }
 
-        internal CustomMessageLambda(Construct scope, string id, CustomMessageLambdaProps props) : base(scope, id)
+    internal CustomMessageLambda(Construct scope, string id, CustomMessageLambdaProps props) : base(scope, id)
+    {
+        Function = new Function(this, "CustomMessageFunction", new FunctionProps
         {
-            Function = new Function(this, "CustomMessageFunction", new FunctionProps
-            {
-                Runtime = Runtime.NODEJS_20_X,
-                Handler = "index.handler",
-                Code = Code.FromInline(@"
+            Runtime = Runtime.NODEJS_24_X,
+            Handler = "index.handler",
+            Code = Code.FromInline(@"
 exports.handler = async (event) => {
     console.log('Custom message trigger:', JSON.stringify(event, null, 2));
     
@@ -77,13 +77,12 @@ exports.handler = async (event) => {
     return event;
 };
 "),
-                Environment = new Dictionary<string, string>
-                {
-                    { "WEBSITE_URL", props.WebsiteUrl },
-                    { "VERIFICATION_API_URL", props.VerificationApiUrl }
-                },
-                Timeout = Duration.Seconds(10)
-            });
-        }
+            Environment = new Dictionary<string, string>
+            {
+                { "WEBSITE_URL", props.WebsiteUrl },
+                { "VERIFICATION_API_URL", props.VerificationApiUrl }
+            },
+            Timeout = Duration.Seconds(10)
+        });
     }
 }

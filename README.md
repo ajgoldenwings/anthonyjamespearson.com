@@ -16,21 +16,21 @@ My personal website built with Angular and AWS CDK, featuring a blog with markdo
 
 ```
 ├── website/              # Angular 21 frontend application
-├── infrastructure/       # AWS CDK infrastructure (C#/.NET 8)
+├── infrastructure/       # AWS CDK infrastructure (C#/.NET 10)
 │   └── src/Infrastructure/
 │       ├── Constructs/
 │       │   ├── BucketConstruct.cs              # S3 bucket for static hosting
 │       │   ├── BucketDeploymentConstruct.cs    # S3 deployment with cache invalidation
 │       │   ├── DistributionConstruct.cs        # CloudFront CDN + Route 53 DNS + ACM cert
 │       │   ├── CognitoConstruct.cs             # User Pool, client, and auth triggers
-│       │   ├── CustomMessageLambda.cs          # Custom email templates (Node.js 20)
+│       │   ├── CustomMessageLambda.cs          # Custom email templates (Node.js 24)
 │       │   └── VerificationConstructs/
 │       │       ├── VerificationApiConstruct.cs  # API Gateway for email verification
-│       │       └── VerificationLambdaConstruct.cs # Verification handler (.NET 8)
+│       │       └── VerificationLambdaConstruct.cs # Verification handler (.NET 10)
 │       ├── InfrastructureStack.cs              # Main stack composition
 │       └── Program.cs                          # CDK app entry point
 ├── lambda/
-│   └── verification/     # Email verification Lambda (.NET 8)
+│   └── verification/     # Email verification Lambda (.NET 10)
 └── README.md
 ```
 
@@ -39,7 +39,7 @@ My personal website built with Angular and AWS CDK, featuring a blog with markdo
 ### Prerequisites
 
 - Node.js and npm
-- .NET 8 SDK
+- .NET 10 SDK
 - AWS CDK CLI (`npm install -g aws-cdk`)
 - AWS credentials configured (`aws sts get-caller-identity`)
 
@@ -83,8 +83,8 @@ The infrastructure is managed with AWS CDK (C#) and provisions:
 - **ACM** - SSL certificate with DNS validation
 - **Cognito** - User Pool with email sign-up, SES email integration, and custom message triggers
 - **API Gateway** - REST API for email verification endpoint (`GET /verify`)
-- **Lambda (Verification)** - .NET 8 function that confirms Cognito sign-ups and marks emails as verified
-- **Lambda (Custom Message)** - Node.js 20 inline function that generates HTML emails for verification and password reset
+- **Lambda (Verification)** - .NET 10 function that confirms Cognito sign-ups and marks emails as verified
+- **Lambda (Custom Message)** - Node.js 24 inline function that generates HTML emails for verification and password reset
 
 ### Deploy
 
@@ -115,10 +115,10 @@ dotnet publish -c Release
 ## Technologies
 
 - **Frontend**: Angular 21, TypeScript, DaisyUI, Tailwind CSS, ngx-markdown
-- **Infrastructure**: AWS CDK (C#/.NET 8)
+- **Infrastructure**: AWS CDK (C#/.NET 10)
 - **Auth**: Amazon Cognito with SES email
 - **Hosting**: S3, CloudFront, Route 53, ACM
-- **Lambda**: .NET 8 (verification), Node.js 20 (custom messages)
+- **Lambda**: .NET 10 (verification), Node.js 24 (custom messages)
 
 ## License
 

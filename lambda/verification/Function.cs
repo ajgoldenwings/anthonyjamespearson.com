@@ -7,167 +7,166 @@ using System.Linq;
 
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
-namespace VerificationLambda
+namespace VerificationLambda;
+
+public class Function
 {
-    public class Function
+    private readonly IAmazonCognitoIdentityProvider _cognitoClient;
+    private readonly string _userPoolId;
+    private readonly string _websiteUrl;
+
+    public Function()
     {
-        private readonly IAmazonCognitoIdentityProvider _cognitoClient;
-        private readonly string _userPoolId;
-        private readonly string _websiteUrl;
+        _cognitoClient = new AmazonCognitoIdentityProviderClient();
+        _userPoolId = Environment.GetEnvironmentVariable("USER_POOL_ID") ?? throw new Exception("USER_POOL_ID not set");
+        _websiteUrl = Environment.GetEnvironmentVariable("WEBSITE_URL") ?? throw new Exception("WEBSITE_URL not set");
+    }
 
-        public Function()
+    public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
+    {
+        context.Logger.LogLine($"Verification request: {JsonSerializer.Serialize(request)}");
+
+        try
         {
-            _cognitoClient = new AmazonCognitoIdentityProviderClient();
-            _userPoolId = Environment.GetEnvironmentVariable("USER_POOL_ID") ?? throw new Exception("USER_POOL_ID not set");
-            _websiteUrl = Environment.GetEnvironmentVariable("WEBSITE_URL") ?? throw new Exception("WEBSITE_URL not set");
-        }
-
-        public async Task<APIGatewayProxyResponse> FunctionHandler(APIGatewayProxyRequest request, ILambdaContext context)
-        {
-            context.Logger.LogLine($"Verification request: {JsonSerializer.Serialize(request)}");
-
-            try
+            // Extract query parameters
+            if (request.QueryStringParameters == null)
             {
-                // Extract query parameters
-                if (request.QueryStringParameters == null)
+                return CreateResponse(400, "Missing query parameters");
+            }
+
+            if (!request.QueryStringParameters.TryGetValue("username", out var username) || string.IsNullOrEmpty(username))
+            {
+                return CreateResponse(400, "Missing username parameter");
+            }
+
+            if (!request.QueryStringParameters.TryGetValue("code", out var code) || string.IsNullOrEmpty(code))
+            {
+                return CreateResponse(400, "Missing code parameter");
+            }
+
+            // Skip the initial AdminGetUser check and just attempt the confirmation directly, handling the "already confirmed" error gracefully.
+            //// First, verify the code by getting user attributes
+            //var getUserRequest = new AdminGetUserRequest
+            //{
+            //    UserPoolId = _userPoolId,
+            //    Username = username
+            //};
+
+            //var getUserResponse = await _cognitoClient.AdminGetUserAsync(getUserRequest);
+            //
+            //// Check if user is already confirmed and email verified
+            //var emailVerifiedAttr = getUserResponse.UserAttributes.FirstOrDefault(a => a.Name == "email_verified");
+            //bool isEmailVerified = emailVerifiedAttr?.Value == "true";
+
+            //if (getUserResponse.UserStatus == UserStatusType.CONFIRMED && isEmailVerified)
+            //{
+            //    context.Logger.LogLine($"User already verified: {username}");
+
+            //    return new APIGatewayProxyResponse
+            //    {
+            //        StatusCode = 302,
+            //        Headers = new Dictionary<string, string>
+            //        {
+            //            { "Location", $"{_websiteUrl}/account/verification-success" }
+            //        }
+            //    };
+            //}
+
+            // Confirm the user if not already confirmed
+            //if (getUserResponse.UserStatus != UserStatusType.CONFIRMED)
+            //{
+            //    var confirmRequest = new AdminConfirmSignUpRequest
+            //    {
+            //        UserPoolId = _userPoolId,
+            //        Username = username
+            //    };
+
+            //    await _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
+            //    context.Logger.LogLine($"User confirmed: {username}");
+            //}
+
+            //// Always ensure email is marked as verified
+            //if (!isEmailVerified)
+            //{
+            //    var updateAttributesRequest = new AdminUpdateUserAttributesRequest
+            //    {
+            //        UserPoolId = _userPoolId,
+            //        Username = username,
+            //        UserAttributes = new List<AttributeType>
+            //        {
+            //            new AttributeType
+            //            {
+            //                Name = "email_verified",
+            //                Value = "true"
+            //            }
+            //        }
+            //    };
+
+            //    await _cognitoClient.AdminUpdateUserAttributesAsync(updateAttributesRequest);
+            //    context.Logger.LogLine($"Email verified for user: {username}");
+            //}
+
+            var confirmRequest = new AdminConfirmSignUpRequest
+            {
+                UserPoolId = _userPoolId,
+                Username = username
+            };
+
+            var updateAttributesRequest = new AdminUpdateUserAttributesRequest
+            {
+                UserPoolId = _userPoolId,
+                Username = username,
+                UserAttributes = new List<AttributeType>
                 {
-                    return CreateResponse(400, "Missing query parameters");
-                }
-
-                if (!request.QueryStringParameters.TryGetValue("username", out var username) || string.IsNullOrEmpty(username))
-                {
-                    return CreateResponse(400, "Missing username parameter");
-                }
-
-                if (!request.QueryStringParameters.TryGetValue("code", out var code) || string.IsNullOrEmpty(code))
-                {
-                    return CreateResponse(400, "Missing code parameter");
-                }
-
-                // Skip the initial AdminGetUser check and just attempt the confirmation directly, handling the "already confirmed" error gracefully.
-                //// First, verify the code by getting user attributes
-                //var getUserRequest = new AdminGetUserRequest
-                //{
-                //    UserPoolId = _userPoolId,
-                //    Username = username
-                //};
-
-                //var getUserResponse = await _cognitoClient.AdminGetUserAsync(getUserRequest);
-                //
-                //// Check if user is already confirmed and email verified
-                //var emailVerifiedAttr = getUserResponse.UserAttributes.FirstOrDefault(a => a.Name == "email_verified");
-                //bool isEmailVerified = emailVerifiedAttr?.Value == "true";
-
-                //if (getUserResponse.UserStatus == UserStatusType.CONFIRMED && isEmailVerified)
-                //{
-                //    context.Logger.LogLine($"User already verified: {username}");
-
-                //    return new APIGatewayProxyResponse
-                //    {
-                //        StatusCode = 302,
-                //        Headers = new Dictionary<string, string>
-                //        {
-                //            { "Location", $"{_websiteUrl}/account/verification-success" }
-                //        }
-                //    };
-                //}
-
-                // Confirm the user if not already confirmed
-                //if (getUserResponse.UserStatus != UserStatusType.CONFIRMED)
-                //{
-                //    var confirmRequest = new AdminConfirmSignUpRequest
-                //    {
-                //        UserPoolId = _userPoolId,
-                //        Username = username
-                //    };
-
-                //    await _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
-                //    context.Logger.LogLine($"User confirmed: {username}");
-                //}
-
-                //// Always ensure email is marked as verified
-                //if (!isEmailVerified)
-                //{
-                //    var updateAttributesRequest = new AdminUpdateUserAttributesRequest
-                //    {
-                //        UserPoolId = _userPoolId,
-                //        Username = username,
-                //        UserAttributes = new List<AttributeType>
-                //        {
-                //            new AttributeType
-                //            {
-                //                Name = "email_verified",
-                //                Value = "true"
-                //            }
-                //        }
-                //    };
-
-                //    await _cognitoClient.AdminUpdateUserAttributesAsync(updateAttributesRequest);
-                //    context.Logger.LogLine($"Email verified for user: {username}");
-                //}
-
-                var confirmRequest = new AdminConfirmSignUpRequest
-                {
-                    UserPoolId = _userPoolId,
-                    Username = username
-                };
-
-                var updateAttributesRequest = new AdminUpdateUserAttributesRequest
-                {
-                    UserPoolId = _userPoolId,
-                    Username = username,
-                    UserAttributes = new List<AttributeType>
+                    new AttributeType
                     {
-                        new AttributeType
-                        {
-                            Name = "email_verified",
-                            Value = "true"
-                        }
+                        Name = "email_verified",
+                        Value = "true"
                     }
-                };
+                }
+            };
 
-                context.Logger.LogLine($"Beginning to confirm and verify user...");
+            context.Logger.LogLine($"Beginning to confirm and verify user...");
 
-                var adminConfirmSignUpAsync = _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
-                var adminUpdateUserAttributesAsync = _cognitoClient.AdminUpdateUserAttributesAsync(updateAttributesRequest);
-                await Task.WhenAll(adminConfirmSignUpAsync, adminUpdateUserAttributesAsync);
+            var adminConfirmSignUpAsync = _cognitoClient.AdminConfirmSignUpAsync(confirmRequest);
+            var adminUpdateUserAttributesAsync = _cognitoClient.AdminUpdateUserAttributesAsync(updateAttributesRequest);
+            await Task.WhenAll(adminConfirmSignUpAsync, adminUpdateUserAttributesAsync);
 
-                context.Logger.LogLine($"User confirmed: {username}");
-                context.Logger.LogLine($"Email verified for user: {username}");
+            context.Logger.LogLine($"User confirmed: {username}");
+            context.Logger.LogLine($"Email verified for user: {username}");
 
-                // Redirect to success page
-                return new APIGatewayProxyResponse
-                {
-                    StatusCode = 302,
-                    Headers = new Dictionary<string, string>
-                    {
-                        { "Location", $"{_websiteUrl}/account/verification-success" }
-                    }
-                };
-            }
-            catch (UserNotFoundException)
-            {
-                context.Logger.LogLine("User not found");
-                return CreateResponse(400, "Verification Failed: User not found");
-            }
-            catch (Exception ex)
-            {
-                context.Logger.LogLine($"Error: {ex.Message}");
-                return CreateResponse(400, "Verification Failed");
-            }
-        }
-
-        private APIGatewayProxyResponse CreateResponse(int statusCode, string message)
-        {
+            // Redirect to success page
             return new APIGatewayProxyResponse
             {
-                StatusCode = statusCode,
-                Body = JsonSerializer.Serialize(new { message }),
+                StatusCode = 302,
                 Headers = new Dictionary<string, string>
                 {
-                    { "Content-Type", "application/json" }
+                    { "Location", $"{_websiteUrl}/account/verification-success" }
                 }
             };
         }
+        catch (UserNotFoundException)
+        {
+            context.Logger.LogLine("User not found");
+            return CreateResponse(400, "Verification Failed: User not found");
+        }
+        catch (Exception ex)
+        {
+            context.Logger.LogLine($"Error: {ex.Message}");
+            return CreateResponse(400, "Verification Failed");
+        }
+    }
+
+    private APIGatewayProxyResponse CreateResponse(int statusCode, string message)
+    {
+        return new APIGatewayProxyResponse
+        {
+            StatusCode = statusCode,
+            Body = JsonSerializer.Serialize(new { message }),
+            Headers = new Dictionary<string, string>
+            {
+                { "Content-Type", "application/json" }
+            }
+        };
     }
 }

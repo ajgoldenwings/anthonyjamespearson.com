@@ -25,12 +25,12 @@ graph TB
     subgraph Auth["🔐 Cognito User Pool"]
         Cognito["User Authentication<br/>• Email-based sign-in<br/>• Self-registration<br/>• Email verification required<br/>• Password policy<br/>• OAuth 2.0 Implicit Grant<br/>• Cognito Domain hosted UI"]
         CognitoClient["User Pool Client<br/>• Auth flows:<br/>&nbsp;&nbsp;&nbsp;&nbsp;UserPassword<br/>&nbsp;&nbsp;&nbsp;&nbsp;UserSRP<br/>• Callback: /account/login"]
-        CustomMsg["Custom Message Lambda<br/>Node.js 20<br/>• Triggers<br/>&nbsp;&nbsp;&nbsp;&nbsp;SignUp<br/>&nbsp;&nbsp;&nbsp;&nbsp;ResendCode<br/>&nbsp;&nbsp;&nbsp;&nbsp;ForgotPassword<br/>• Generates HTML emails<br/>• Creates verification links"]
+        CustomMsg["Custom Message Lambda<br/>Node.js 24<br/>• Triggers<br/>&nbsp;&nbsp;&nbsp;&nbsp;SignUp<br/>&nbsp;&nbsp;&nbsp;&nbsp;ResendCode<br/>&nbsp;&nbsp;&nbsp;&nbsp;ForgotPassword<br/>• Generates HTML emails<br/>• Creates verification links"]
     end
     
     subgraph Verification["✉️ Email Verification System"]
         API["API Gateway REST API<br/>• Endpoint: GET /verify<br/>• CORS enabled<br/>• URL: /prod/verify"]
-        VerifyLambda["Verification Lambda<br/>.NET 8 Runtime<br/>• AdminConfirmSignUp<br/>• AdminGetUser<br/>• AdminUpdateUserAttributes<br/>• Timeout: 30s"]
+        VerifyLambda["Verification Lambda<br/>.NET 10 Runtime<br/>• AdminConfirmSignUp<br/>• AdminGetUser<br/>• AdminUpdateUserAttributes<br/>• Timeout: 30s"]
     end
     
     subgraph Email["📧 Amazon SES"]
