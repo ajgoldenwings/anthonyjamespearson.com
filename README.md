@@ -5,12 +5,18 @@ My personal website built with Angular and AWS CDK, featuring a blog with markdo
 ## Features
 
 - **Modern Angular Frontend** - Built with Angular 21 and standalone components
+![Homepage](./docs/screenshot-website.png)
 - **Markdown Blog System** - Dynamic article rendering from markdown files
-- **Responsive Design** - Built with DaisyUI and Tailwind CSS
+![Homepage](./docs/screenshot-articles.png)
+- **Responsive Design** - Built with [DaisyUI](https://daisyui.com) and [Tailwind CSS](https://tailwindcss.com)
 - **User Authentication** - Cognito-based sign-up, login, password reset, and email verification
+![Homepage](./docs/screenshot-auth.png)
 - **Custom Email Verification** - API Gateway + Lambda flow for click-to-verify emails
+![Homepage](./docs/screenshot-aws-lambda.png)
 - **Security Headers** - CSP, HSTS, X-Frame-Options, and more via CloudFront
+![Homepage](./docs/screenshot-aws-cloudfront.png)
 - **AWS Infrastructure** - Fully defined in C# with AWS CDK
+![Homepage](./docs/screenshot-aws.png)
 
 ## Project Structure
 
